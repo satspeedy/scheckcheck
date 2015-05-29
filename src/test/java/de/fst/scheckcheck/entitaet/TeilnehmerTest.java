@@ -1,5 +1,6 @@
-package de.fst.scheckcheck.entity;
+package de.fst.scheckcheck.entitaet;
 
+import de.fst.scheckcheck.allgemein.TestRessourcenProduzent;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,10 +9,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import static de.fst.scheckcheck.allgemein.TestDatenHelfer.erzeugeTeilnehmer;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class MemberTest {
+public class TeilnehmerTest {
 
   private EntityManager em;
 
@@ -19,7 +21,7 @@ public class MemberTest {
 
   @Before
   public void setUp() {
-    this.emf = Persistence.createEntityManagerFactory("test-scheckcheck-PU");
+    this.emf = Persistence.createEntityManagerFactory(TestRessourcenProduzent.PERSISTENZ_EINHEIT_NAME_FUER_TESTS);
     this.em = this.emf.createEntityManager();
   }
 
@@ -37,20 +39,15 @@ public class MemberTest {
   }
 
   @Test
-  public void shouldSaveAndRead() {
+  public void shouldSaveAndFind() {
     this.em.getTransaction().begin();
-    this.em.merge(new Member());
+    this.em.merge(erzeugeTeilnehmer());
     this.em.getTransaction().commit();
 
     this.refreshEntityManager();
 
-    this.em.getTransaction().begin();
-    Member member = this.em.createNamedQuery(Member.NQ_FIND_ALL, Member.class).getSingleResult();
-    this.em.getTransaction().commit();
-
-    this.refreshEntityManager();
-
-    assertThat(member, notNullValue());
-    assertThat(member.getId(), notNullValue());
+    Teilnehmer teilnehmer = this.em.createNamedQuery(Teilnehmer.NQ_FINDE_ALLE, Teilnehmer.class).getSingleResult();
+    assertThat(teilnehmer, notNullValue());
+    assertThat(teilnehmer.getId(), notNullValue());
   }
 }

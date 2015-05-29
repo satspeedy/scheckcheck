@@ -3,8 +3,8 @@
 <persistence-unit name="test-scheckcheck-PU"
                   transaction-type="RESOURCE_LOCAL">
     <!--<exclude-unlisted-classes>false</exclude-unlisted-classes>-->
-    <class>de.fst.scheckcheck.entity.User</class>
-    <class>de.fst.scheckcheck.entity.Member</class>
+    <class>de.fst.scheckcheck.entitaet.Nutzer</class>
+    <class>de.fst.scheckcheck.entitaet.Teilnehmer</class>
 
     <properties>
         <property name="hibernate.connection.url" value="jdbc:h2:mem:test;MODE=MySQL"/>

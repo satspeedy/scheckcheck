@@ -1,0 +1,97 @@
+package de.fst.scheckcheck.rest.ressource;
+
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+
+/**
+ * Ressourcen Objekt für {@link de.fst.scheckcheck.entitaet.Teilnehmer}.
+ */
+@XmlRootElement
+public class TeilnehmerRO implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+
+  private Long id;
+
+  private Long optimisticLockingVersion;
+
+  private String username;
+
+  private String passwort;
+
+  private String vorname;
+
+  private String nachname;
+
+  private Boolean newsletterKennzeichen;
+
+  private Boolean kontaktaufnahmeKennzeichen;
+
+  public TeilnehmerRO() {
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public Long getOptimisticLockingVersion() {
+    return optimisticLockingVersion;
+  }
+
+  public void setOptimisticLockingVersion(Long optimisticLockingVersion) {
+    this.optimisticLockingVersion = optimisticLockingVersion;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getPasswort() {
+    return passwort;
+  }
+
+  public void setPasswort(String passwort) {
+    this.passwort = passwort;
+  }
+
+  public String getVorname() {
+    return vorname;
+  }
+
+  public void setVorname(String vorname) {
+    this.vorname = vorname;
+  }
+
+  public String getNachname() {
+    return nachname;
+  }
+
+  public void setNachname(String nachname) {
+    this.nachname = nachname;
+  }
+
+  public Boolean getNewsletterKennzeichen() {
+    return newsletterKennzeichen;
+  }
+
+  public void setNewsletterKennzeichen(Boolean newsletterKennzeichen) {
+    this.newsletterKennzeichen = newsletterKennzeichen;
+  }
+
+  public Boolean getKontaktaufnahmeKennzeichen() {
+    return kontaktaufnahmeKennzeichen;
+  }
+
+  public void setKontaktaufnahmeKennzeichen(Boolean kontaktaufnahmeKennzeichen) {
+    this.kontaktaufnahmeKennzeichen = kontaktaufnahmeKennzeichen;
+  }
+
+}
