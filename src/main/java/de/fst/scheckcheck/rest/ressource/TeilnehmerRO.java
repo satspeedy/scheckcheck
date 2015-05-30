@@ -1,13 +1,12 @@
 package de.fst.scheckcheck.rest.ressource;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
 
 /**
  * Ressourcen Objekt für {@link de.fst.scheckcheck.entitaet.Teilnehmer}.
  */
 @XmlRootElement
-public class TeilnehmerRO implements Serializable {
+public class TeilnehmerRO implements BasisRO {
 
   private static final long serialVersionUID = 1L;
 
