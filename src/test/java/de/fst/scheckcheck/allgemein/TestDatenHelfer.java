@@ -54,11 +54,11 @@ public class TestDatenHelfer {
   }
 
   public static PortalMitarbeiter erzeugePortalMitarbeiter() {
-    PortalMitarbeiter portalMitarbeiter = new PortalMitarbeiter();
-    portalMitarbeiter.setPasswort("passwort");
-    portalMitarbeiter.setUsername("username" + UUID.randomUUID());
-    portalMitarbeiter.setAdministrationsRolle(true);
-    return portalMitarbeiter;
+    PortalMitarbeiter PortalMitarbeiter = new PortalMitarbeiter();
+    PortalMitarbeiter.setPasswort("passwort");
+    PortalMitarbeiter.setUsername("username" + UUID.randomUUID());
+    PortalMitarbeiter.setAdministrationsRolle(true);
+    return PortalMitarbeiter;
   }
 
   public static BasisEntitaet setzeEntitaetIdUndVersion(BasisEntitaet entitaet) {
