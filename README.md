@@ -18,7 +18,7 @@ Java 7 und Wildfly 8.2.0.Final
 Das Projekt ist nur für prototypische Zwecke erstellt worden und befindet sich aktuell noch in der Entwicklung.
 
 ## Aktueller Build Status mit travis-ci
-![alt tag](https://travis-ci.org/satspeedy/scheckcheck.svg?branch=master)
+[![Build Status](https://travis-ci.org/satspeedy/scheckcheck.svg?branch=master)](https://travis-ci.org/satspeedy/scheckcheck)
 
 
 
