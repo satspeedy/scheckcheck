@@ -26,7 +26,7 @@ import static org.hamcrest.Matchers.*;
 public class BildungsmassnahmeDbIntegrationServiceTest {
 
   @Inject
-  private BildungsmassnahmeDbIntegrationsService bildungsmassnahmeDbIntegrationsService;
+  private BildungsmassnahmeDbIntegrationService bildungsmassnahmeDbIntegrationService;
 
   private EntityManagerFactory emf;
 
@@ -38,7 +38,7 @@ public class BildungsmassnahmeDbIntegrationServiceTest {
 
   @Before
   public void setUp() {
-    this.em = bildungsmassnahmeDbIntegrationsService.getEm();
+    this.em = bildungsmassnahmeDbIntegrationService.getEm();
     this.emf = this.em.getEntityManagerFactory();
     this.et = this.em.getTransaction();
 
@@ -60,7 +60,7 @@ public class BildungsmassnahmeDbIntegrationServiceTest {
     this.em.clear();
     this.em.close();
     this.em = this.emf.createEntityManager();
-    bildungsmassnahmeDbIntegrationsService.setEm(this.em);
+    bildungsmassnahmeDbIntegrationService.setEm(this.em);
     this.et =  this.em.getTransaction();
   }
 
@@ -70,23 +70,23 @@ public class BildungsmassnahmeDbIntegrationServiceTest {
 
     Bildungsmassnahme entity =  erzeugeBildungsmassnahme();
     entity.setBildungstraeger(bildungstraeger);
-    entity = bildungsmassnahmeDbIntegrationsService.speichern(entity);
+    entity = bildungsmassnahmeDbIntegrationService.speicher(entity);
     assertThat(entity.getId(), equalTo(1L));
 
     entity =  erzeugeBildungsmassnahme();
     entity.setBildungstraeger(bildungstraeger);
-    entity = bildungsmassnahmeDbIntegrationsService.speichern(entity);
+    entity = bildungsmassnahmeDbIntegrationService.speicher(entity);
     assertThat(entity.getId(), equalTo(2L));
 
     entity =  erzeugeBildungsmassnahme();
     entity.setBildungstraeger(bildungstraeger);
-    entity = bildungsmassnahmeDbIntegrationsService.speichern(entity);
+    entity = bildungsmassnahmeDbIntegrationService.speicher(entity);
     assertThat(entity.getId(), equalTo(3L));
 
     this.et.commit();
     this.refreshEntityManager();
 
-    List<Bildungsmassnahme> bildungsmassnahmen = bildungsmassnahmeDbIntegrationsService.listeAlleAuf();
+    List<Bildungsmassnahme> bildungsmassnahmen = bildungsmassnahmeDbIntegrationService.listeAlleAuf();
     assertThat(bildungsmassnahmen, contains(hasProperty("id", is(1L)), hasProperty("id", is(2L)), hasProperty("id", is(3L))));
   }
 
@@ -95,22 +95,22 @@ public class BildungsmassnahmeDbIntegrationServiceTest {
     this.et.begin();
     Bildungsmassnahme entity =  erzeugeBildungsmassnahme();
     entity.setBildungstraeger(bildungstraeger);
-    entity = bildungsmassnahmeDbIntegrationsService.speichern(entity);
+    entity = bildungsmassnahmeDbIntegrationService.speicher(entity);
     this.et.commit();
     this.refreshEntityManager();
 
-    entity = bildungsmassnahmeDbIntegrationsService.suchen(entity.getId());
+    entity = bildungsmassnahmeDbIntegrationService.suche(entity.getId());
     assertThat(entity, notNullValue());
     assertThat(entity.getOptimisticLockingVersion(), equalTo(0L));
     String updateName = "testNeuerName";
     entity.setName(updateName);
 
     this.et.begin();
-    bildungsmassnahmeDbIntegrationsService.speichern(entity);
+    bildungsmassnahmeDbIntegrationService.speicher(entity);
     this.et.commit();
     this.refreshEntityManager();
 
-    entity = bildungsmassnahmeDbIntegrationsService.suchen(entity.getId());
+    entity = bildungsmassnahmeDbIntegrationService.suche(entity.getId());
     assertThat(entity, notNullValue());
     assertThat(entity.getName(), equalTo(updateName));
     assertThat(entity.getOptimisticLockingVersion(), equalTo(1L));
@@ -121,18 +121,47 @@ public class BildungsmassnahmeDbIntegrationServiceTest {
     this.et.begin();
     Bildungsmassnahme entity =  erzeugeBildungsmassnahme();
     entity.setBildungstraeger(bildungstraeger);
-    entity = bildungsmassnahmeDbIntegrationsService.speichern(entity);
+    entity = bildungsmassnahmeDbIntegrationService.speicher(entity);
     this.et.commit();
     this.refreshEntityManager();
 
     this.et.begin();
-    entity =  bildungsmassnahmeDbIntegrationsService.suchen(entity.getId());
-    bildungsmassnahmeDbIntegrationsService.loeschen(entity);
+    entity =  bildungsmassnahmeDbIntegrationService.suche(entity.getId());
+    bildungsmassnahmeDbIntegrationService.loeschen(entity);
     this.et.commit();
     this.refreshEntityManager();
 
-    entity = bildungsmassnahmeDbIntegrationsService.suchen(entity.getId());
+    entity = bildungsmassnahmeDbIntegrationService.suche(entity.getId());
     assertThat(entity, nullValue());
   }
 
+  @Test
+  public void shouldFindByBildungstraegerId() {
+    this.et.begin();
+    Bildungsmassnahme entity =  erzeugeBildungsmassnahme();
+    entity.setBildungstraeger(bildungstraeger);
+    entity = bildungsmassnahmeDbIntegrationService.speicher(entity);
+    this.et.commit();
+    this.refreshEntityManager();
+
+    List<Bildungsmassnahme> bildungsmassnahmen = bildungsmassnahmeDbIntegrationService.sucheAnhandDerBildungstraegerId(bildungstraeger.getId());
+
+    assertThat(bildungsmassnahmen, hasSize(1));
+    assertThat(bildungsmassnahmen.get(0).getId(), equalTo(entity.getId()));
+  }
+
+  @Test
+  public void shouldFindByName() {
+    this.et.begin();
+    Bildungsmassnahme entity = erzeugeBildungsmassnahme();
+    entity.setBildungstraeger(bildungstraeger);
+    entity = bildungsmassnahmeDbIntegrationService.speicher(entity);
+    this.et.commit();
+    this.refreshEntityManager();
+
+    List<Bildungsmassnahme> bildungsmassnahmen = bildungsmassnahmeDbIntegrationService.sucheAnhandDesNamen(entity.getName());
+
+    assertThat(bildungsmassnahmen, hasSize(1));
+    assertThat(bildungsmassnahmen.get(0).getId(), equalTo(entity.getId()));
+  }
 }

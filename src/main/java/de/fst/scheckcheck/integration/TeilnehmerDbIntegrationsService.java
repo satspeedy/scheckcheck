@@ -44,7 +44,7 @@ public class TeilnehmerDbIntegrationsService {
    * @param teilnehmer Teilnehmer
    * @return zusammengeführte instance
    */
-  public Teilnehmer speichern(Teilnehmer teilnehmer) {
+  public Teilnehmer speicher(Teilnehmer teilnehmer) {
     Teilnehmer gespeicherterTeilnehmer = em.merge(teilnehmer);
     logger.info("Entity mit id " + gespeicherterTeilnehmer.getId() + " gemerged!");
     return gespeicherterTeilnehmer;
@@ -56,7 +56,7 @@ public class TeilnehmerDbIntegrationsService {
    * @param id id des zu suchenden Teilnehmers.
    * @return gefundene entität oder null wenn keine entität existiert
    */
-  public Teilnehmer suchen(Long id) {
+  public Teilnehmer suche(Long id) {
     return em.find(Teilnehmer.class, id);
   }
 
@@ -65,7 +65,7 @@ public class TeilnehmerDbIntegrationsService {
    *
    * @param teilnehmer Teilnehmer instanz
    */
-  public void loeschen(Teilnehmer teilnehmer) {
+  public void loesche(Teilnehmer teilnehmer) {
       em.remove(teilnehmer);
   }
 
@@ -85,7 +85,7 @@ public class TeilnehmerDbIntegrationsService {
    * @param username username
    * @return gefundene entität oder null wenn keine entität existiert
    */
-  public Teilnehmer suchenAnhandDesUsername(String username) {
+  public Teilnehmer sucheAnhandDesUsername(String username) {
     TypedQuery<Teilnehmer> findByUsernameQuery = em.createQuery(
       "SELECT DISTINCT t FROM Teilnehmer t WHERE t.username = :username ORDER BY t.username", Teilnehmer.class);
     findByUsernameQuery.setParameter("username", username);

@@ -59,15 +59,15 @@ public class BildungstraegerDbIntegrationServiceTest {
     this.et.begin();
 
     Bildungstraeger entity =  erzeugeBildungstraeger();
-    entity = bildungstraegerDbIntegrationsService.speichern(entity);
+    entity = bildungstraegerDbIntegrationsService.speicher(entity);
     assertThat(entity.getId(), equalTo(1L));
 
     entity =  erzeugeBildungstraeger();
-    entity = bildungstraegerDbIntegrationsService.speichern(entity);
+    entity = bildungstraegerDbIntegrationsService.speicher(entity);
     assertThat(entity.getId(), equalTo(2L));
 
     entity =  erzeugeBildungstraeger();
-    entity = bildungstraegerDbIntegrationsService.speichern(entity);
+    entity = bildungstraegerDbIntegrationsService.speicher(entity);
     assertThat(entity.getId(), equalTo(3L));
 
     this.et.commit();
@@ -81,22 +81,22 @@ public class BildungstraegerDbIntegrationServiceTest {
   public void shouldUpdate() {
     this.et.begin();
     Bildungstraeger entity =  erzeugeBildungstraeger();
-    entity = bildungstraegerDbIntegrationsService.speichern(entity);
+    entity = bildungstraegerDbIntegrationsService.speicher(entity);
     this.et.commit();
     this.refreshEntityManager();
 
-    entity = bildungstraegerDbIntegrationsService.suchen(entity.getId());
+    entity = bildungstraegerDbIntegrationsService.suche(entity.getId());
     assertThat(entity, notNullValue());
     assertThat(entity.getOptimisticLockingVersion(), equalTo(0L));
     String updateName = "testNeuerName";
     entity.setName(updateName);
 
     this.et.begin();
-    bildungstraegerDbIntegrationsService.speichern(entity);
+    bildungstraegerDbIntegrationsService.speicher(entity);
     this.et.commit();
     this.refreshEntityManager();
 
-    entity = bildungstraegerDbIntegrationsService.suchen(entity.getId());
+    entity = bildungstraegerDbIntegrationsService.suche(entity.getId());
     assertThat(entity, notNullValue());
     assertThat(entity.getName(), equalTo(updateName));
     assertThat(entity.getOptimisticLockingVersion(), equalTo(1L));
@@ -106,17 +106,17 @@ public class BildungstraegerDbIntegrationServiceTest {
   public void shouldDelete() {
     this.et.begin();
     Bildungstraeger entity =  erzeugeBildungstraeger();
-    entity = bildungstraegerDbIntegrationsService.speichern(entity);
+    entity = bildungstraegerDbIntegrationsService.speicher(entity);
     this.et.commit();
     this.refreshEntityManager();
 
     this.et.begin();
-    entity =  bildungstraegerDbIntegrationsService.suchen(entity.getId());
-    bildungstraegerDbIntegrationsService.loeschen(entity);
+    entity =  bildungstraegerDbIntegrationsService.suche(entity.getId());
+    bildungstraegerDbIntegrationsService.loesche(entity);
     this.et.commit();
     this.refreshEntityManager();
 
-    entity = bildungstraegerDbIntegrationsService.suchen(entity.getId());
+    entity = bildungstraegerDbIntegrationsService.suche(entity.getId());
     assertThat(entity, nullValue());
   }
 

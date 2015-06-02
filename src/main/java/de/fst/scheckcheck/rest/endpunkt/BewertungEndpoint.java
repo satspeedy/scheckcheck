@@ -37,7 +37,7 @@ public class BewertungEndpoint {
   @Consumes("application/json")
   public Response erzeuge(BewertungRO ro) {
     Bewertung entity = bewertungMapper.vonRO(null, ro);
-    bewertungDbIntegrationsService.speichern(entity);
+    bewertungDbIntegrationsService.speicher(entity);
     return Response.created(
       UriBuilder.fromResource(BewertungEndpoint.class).path(String.valueOf(entity.getId())).build())
       .build();
@@ -51,12 +51,12 @@ public class BewertungEndpoint {
    */
   @DELETE
   @Path("/{id:[0-9][0-9]*}")
-  public Response loescheAnhandDerId(@PathParam("id") Long id) {
-    Bewertung bewertung = bewertungDbIntegrationsService.suchen(id);
+  public Response loesche(@PathParam("id") Long id) {
+    Bewertung bewertung = bewertungDbIntegrationsService.suche(id);
     if (bewertung == null) {
       return Response.status(Status.NOT_FOUND).build();
     }
-    bewertungDbIntegrationsService.loeschen(bewertung);
+    bewertungDbIntegrationsService.loesche(bewertung);
     return Response.noContent().build();
   }
 
@@ -69,8 +69,8 @@ public class BewertungEndpoint {
   @GET
   @Path("/{id:[0-9][0-9]*}")
   @Produces("application/json")
-  public Response sucheAnhandDerId(@PathParam("id") Long id) {
-    Bewertung bewertung = bewertungDbIntegrationsService.suchen(id);
+  public Response suche(@PathParam("id") Long id) {
+    Bewertung bewertung = bewertungDbIntegrationsService.suche(id);
     if (bewertung == null) {
       return Response.status(Status.NOT_FOUND).build();
     }
@@ -105,10 +105,10 @@ public class BewertungEndpoint {
   @PUT
   @Path("/{id:[0-9][0-9]*}")
   @Consumes("application/json")
-  public Response update(@PathParam("id") Long id, BewertungRO ro) {
-    Bewertung entity = bewertungDbIntegrationsService.suchen(id);
+  public Response aktualisiere(@PathParam("id") Long id, BewertungRO ro) {
+    Bewertung entity = bewertungDbIntegrationsService.suche(id);
     entity = bewertungMapper.vonRO(entity, ro);
-    bewertungDbIntegrationsService.speichern(entity);
+    bewertungDbIntegrationsService.speicher(entity);
     return Response.noContent().build();
   }
 

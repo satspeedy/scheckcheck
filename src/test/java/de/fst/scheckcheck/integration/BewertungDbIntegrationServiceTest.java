@@ -80,19 +80,19 @@ public class BewertungDbIntegrationServiceTest {
     Bewertung entity =  erzeugeBewertung();
     entity.setTeilnehmer(teilnehmer);
     entity.setBildungsmassnahme(bildungsmassnahme);
-    entity = bewertungDbIntegrationsService.speichern(entity);
+    entity = bewertungDbIntegrationsService.speicher(entity);
     assertThat(entity.getId(), equalTo(1L));
 
     entity =  erzeugeBewertung();
     entity.setTeilnehmer(teilnehmer);
     entity.setBildungsmassnahme(bildungsmassnahme);
-    entity = bewertungDbIntegrationsService.speichern(entity);
+    entity = bewertungDbIntegrationsService.speicher(entity);
     assertThat(entity.getId(), equalTo(2L));
 
     entity =  erzeugeBewertung();
     entity.setTeilnehmer(teilnehmer);
     entity.setBildungsmassnahme(bildungsmassnahme);
-    entity = bewertungDbIntegrationsService.speichern(entity);
+    entity = bewertungDbIntegrationsService.speicher(entity);
     assertThat(entity.getId(), equalTo(3L));
 
     this.et.commit();
@@ -108,22 +108,22 @@ public class BewertungDbIntegrationServiceTest {
     Bewertung entity =  erzeugeBewertung();
     entity.setTeilnehmer(teilnehmer);
     entity.setBildungsmassnahme(bildungsmassnahme);
-    entity = bewertungDbIntegrationsService.speichern(entity);
+    entity = bewertungDbIntegrationsService.speicher(entity);
     this.et.commit();
     this.refreshEntityManager();
 
-    entity = bewertungDbIntegrationsService.suchen(entity.getId());
+    entity = bewertungDbIntegrationsService.suche(entity.getId());
     assertThat(entity, notNullValue());
     assertThat(entity.getOptimisticLockingVersion(), equalTo(0L));
     String updateFreiText = "testFreiText";
     entity.setFreiText(updateFreiText);
 
     this.et.begin();
-    bewertungDbIntegrationsService.speichern(entity);
+    bewertungDbIntegrationsService.speicher(entity);
     this.et.commit();
     this.refreshEntityManager();
 
-    entity = bewertungDbIntegrationsService.suchen(entity.getId());
+    entity = bewertungDbIntegrationsService.suche(entity.getId());
     assertThat(entity, notNullValue());
     assertThat(entity.getFreiText(), equalTo(updateFreiText));
     assertThat(entity.getOptimisticLockingVersion(), equalTo(1L));
@@ -135,17 +135,17 @@ public class BewertungDbIntegrationServiceTest {
     Bewertung entity =  erzeugeBewertung();
     entity.setTeilnehmer(teilnehmer);
     entity.setBildungsmassnahme(bildungsmassnahme);
-    entity = bewertungDbIntegrationsService.speichern(entity);
+    entity = bewertungDbIntegrationsService.speicher(entity);
     this.et.commit();
     this.refreshEntityManager();
 
     this.et.begin();
-    entity =  bewertungDbIntegrationsService.suchen(entity.getId());
-    bewertungDbIntegrationsService.loeschen(entity);
+    entity =  bewertungDbIntegrationsService.suche(entity.getId());
+    bewertungDbIntegrationsService.loesche(entity);
     this.et.commit();
     this.refreshEntityManager();
 
-    entity = bewertungDbIntegrationsService.suchen(entity.getId());
+    entity = bewertungDbIntegrationsService.suche(entity.getId());
     assertThat(entity, nullValue());
   }
 

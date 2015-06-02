@@ -44,7 +44,7 @@ public class PortalmitarbeiterDbIntegrationsService {
    * @param portalmitarbeiter Teilnehmer
    * @return zusammengeführte instance
    */
-  public Portalmitarbeiter speichern(Portalmitarbeiter portalmitarbeiter) {
+  public Portalmitarbeiter speicher(Portalmitarbeiter portalmitarbeiter) {
     Portalmitarbeiter gespeicherterPortalmiarbeiter = em.merge(portalmitarbeiter);
     logger.info("Entity mit id " + gespeicherterPortalmiarbeiter.getId() + " gemerged!");
     return gespeicherterPortalmiarbeiter;
@@ -56,7 +56,7 @@ public class PortalmitarbeiterDbIntegrationsService {
    * @param id id des zu suchenden Teilnehmers.
    * @return gefundene entität oder null wenn keine entität existiert
    */
-  public Portalmitarbeiter suchen(Long id) {
+  public Portalmitarbeiter suche(Long id) {
     return em.find(Portalmitarbeiter.class, id);
   }
 
@@ -65,7 +65,7 @@ public class PortalmitarbeiterDbIntegrationsService {
    *
    * @param portalmitarbeiter Portalmitarbeiter instanz
    */
-  public void loeschen(Portalmitarbeiter portalmitarbeiter) {
+  public void loesche(Portalmitarbeiter portalmitarbeiter) {
       em.remove(portalmitarbeiter);
   }
 
@@ -85,7 +85,7 @@ public class PortalmitarbeiterDbIntegrationsService {
    * @param username username
    * @return gefundene entität oder null wenn keine entität existiert
    */
-  public Portalmitarbeiter suchenAnhandDesUsername(String username) {
+  public Portalmitarbeiter sucheAnhandDesUsername(String username) {
     TypedQuery<Portalmitarbeiter> findByUsernameQuery = em.createQuery(
       "SELECT DISTINCT p FROM Portalmitarbeiter p WHERE p.username = :username ORDER BY p.username", Portalmitarbeiter.class);
     findByUsernameQuery.setParameter("username", username);

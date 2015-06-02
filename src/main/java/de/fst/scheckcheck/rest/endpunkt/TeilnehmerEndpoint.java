@@ -37,7 +37,7 @@ public class TeilnehmerEndpoint {
   @Consumes("application/json")
   public Response erzeuge(TeilnehmerRO ro) {
     Teilnehmer entity = teilnehmerMapper.vonRO(null, ro);
-    teilnehmerDbIntegrationsService.speichern(entity);
+    teilnehmerDbIntegrationsService.speicher(entity);
     return Response.created(
       UriBuilder.fromResource(TeilnehmerEndpoint.class).path(String.valueOf(entity.getId())).build())
       .build();
@@ -51,12 +51,12 @@ public class TeilnehmerEndpoint {
    */
   @DELETE
   @Path("/{id:[0-9][0-9]*}")
-  public Response loescheAnhandDerId(@PathParam("id") Long id) {
-    Teilnehmer teilnehmer = teilnehmerDbIntegrationsService.suchen(id);
+  public Response loesche(@PathParam("id") Long id) {
+    Teilnehmer teilnehmer = teilnehmerDbIntegrationsService.suche(id);
     if (teilnehmer == null) {
       return Response.status(Status.NOT_FOUND).build();
     }
-    teilnehmerDbIntegrationsService.loeschen(teilnehmer);
+    teilnehmerDbIntegrationsService.loesche(teilnehmer);
     return Response.noContent().build();
   }
 
@@ -69,8 +69,8 @@ public class TeilnehmerEndpoint {
   @GET
   @Path("/{id:[0-9][0-9]*}")
   @Produces("application/json")
-  public Response sucheAnhandDerId(@PathParam("id") Long id) {
-    Teilnehmer teilnehmer = teilnehmerDbIntegrationsService.suchen(id);
+  public Response suche(@PathParam("id") Long id) {
+    Teilnehmer teilnehmer = teilnehmerDbIntegrationsService.suche(id);
     if (teilnehmer == null) {
       return Response.status(Status.NOT_FOUND).build();
     }
@@ -88,7 +88,7 @@ public class TeilnehmerEndpoint {
   @Path("/username/{username:[a-zA-Z][a-zA-Z_0-9]*}")
   @Produces("application/json")
   public Response sucheAnhandDesUsername(@PathParam("username") String username) {
-    Teilnehmer teilnehmer = teilnehmerDbIntegrationsService.suchenAnhandDesUsername(username);
+    Teilnehmer teilnehmer = teilnehmerDbIntegrationsService.sucheAnhandDesUsername(username);
     if (teilnehmer == null) {
       return Response.status(Status.NOT_FOUND).build();
     }
@@ -123,10 +123,10 @@ public class TeilnehmerEndpoint {
   @PUT
   @Path("/{id:[0-9][0-9]*}")
   @Consumes("application/json")
-  public Response update(@PathParam("id") Long id, TeilnehmerRO ro) {
-    Teilnehmer entity = teilnehmerDbIntegrationsService.suchen(id);
+  public Response aktualisiere(@PathParam("id") Long id, TeilnehmerRO ro) {
+    Teilnehmer entity = teilnehmerDbIntegrationsService.suche(id);
     entity = teilnehmerMapper.vonRO(entity, ro);
-    teilnehmerDbIntegrationsService.speichern(entity);
+    teilnehmerDbIntegrationsService.speicher(entity);
     return Response.noContent().build();
   }
 

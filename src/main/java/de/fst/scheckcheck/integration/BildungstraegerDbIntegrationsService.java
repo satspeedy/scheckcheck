@@ -42,7 +42,7 @@ public class BildungstraegerDbIntegrationsService {
    * @param bildungstraeger Bildungstraeger
    * @return zusammengeführte instance
    */
-  public Bildungstraeger speichern(Bildungstraeger bildungstraeger) {
+  public Bildungstraeger speicher(Bildungstraeger bildungstraeger) {
     Bildungstraeger gespeicherterBildungstraeger = em.merge(bildungstraeger);
     logger.info("Entity mit id " + gespeicherterBildungstraeger.getId() + " gemerged!");
     return gespeicherterBildungstraeger;
@@ -54,7 +54,7 @@ public class BildungstraegerDbIntegrationsService {
    * @param id id des zu suchenden Bildungstraegers.
    * @return gefundene entität oder null wenn keine entität existiert
    */
-  public Bildungstraeger suchen(Long id) {
+  public Bildungstraeger suche(Long id) {
     return em.find(Bildungstraeger.class, id);
   }
 
@@ -63,7 +63,7 @@ public class BildungstraegerDbIntegrationsService {
    *
    * @param bildungstraeger Bildungstraeger instanz
    */
-  public void loeschen(Bildungstraeger bildungstraeger) {
+  public void loesche(Bildungstraeger bildungstraeger) {
       em.remove(bildungstraeger);
   }
 

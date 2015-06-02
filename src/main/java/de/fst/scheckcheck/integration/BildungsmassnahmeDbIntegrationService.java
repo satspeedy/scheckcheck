@@ -1,7 +1,6 @@
 package de.fst.scheckcheck.integration;
 
 import de.fst.scheckcheck.entitaet.Bildungsmassnahme;
-import de.fst.scheckcheck.entitaet.Bildungstraeger;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -14,7 +13,7 @@ import java.util.logging.Logger;
 /**
  * Datenbank Integrationsservice für Bildungsmassnahme.
  */
-public class BildungsmassnahmeDbIntegrationsService {
+public class BildungsmassnahmeDbIntegrationService {
 
   @Inject
   private Logger logger;
@@ -46,7 +45,7 @@ public class BildungsmassnahmeDbIntegrationsService {
    * @param bildungsmassnahme Teilnehmer
    * @return zusammengeführte instance
    */
-  public Bildungsmassnahme speichern(Bildungsmassnahme bildungsmassnahme) {
+  public Bildungsmassnahme speicher(Bildungsmassnahme bildungsmassnahme) {
     Bildungsmassnahme gespeicherteBildungsmassnahme = em.merge(bildungsmassnahme);
     logger.info("Entity mit id " + gespeicherteBildungsmassnahme.getId() + " gemerged!");
     return gespeicherteBildungsmassnahme;
@@ -58,7 +57,7 @@ public class BildungsmassnahmeDbIntegrationsService {
    * @param id id der zu suchenden Bildungsmassnahme.
    * @return gefundene entität oder null wenn keine entität existiert
    */
-  public Bildungsmassnahme suchen(Long id) {
+  public Bildungsmassnahme suche(Long id) {
     return em.find(Bildungsmassnahme.class, id);
   }
 
@@ -82,15 +81,15 @@ public class BildungsmassnahmeDbIntegrationsService {
   }
 
   /**
-   * Suche anhand des Bildungsträgers.
+   * Suche anhand der Bildungsträger id.
    *
-   * @param bildungstraeger Bildungstraeger als Suchparameter
+   * @param bildungstraegerId id des Bildungstraegers als Suchparameter
    * @return Liste von gefundenen entitäten oder eine leere Liste wenn keine entität existiert
    */
-  public List<Bildungsmassnahme> suchenAnhandDesBildungstraegers(Bildungstraeger bildungstraeger) {
+  public List<Bildungsmassnahme> sucheAnhandDerBildungstraegerId(Long bildungstraegerId) {
     TypedQuery<Bildungsmassnahme> findByBildungstraegerQuery = em.createQuery(
-      "SELECT DISTINCT b FROM Bildungsmassnahme b WHERE b.bildungstraeger = :bildungstraeger ORDER BY b.id", Bildungsmassnahme.class);
-    findByBildungstraegerQuery.setParameter("bildungstraeger", bildungstraeger);
+      "SELECT DISTINCT b FROM Bildungsmassnahme b WHERE b.bildungstraeger.id = :bildungstraegerId ORDER BY b.id", Bildungsmassnahme.class);
+    findByBildungstraegerQuery.setParameter("bildungstraegerId", bildungstraegerId);
     List<Bildungsmassnahme> bildungsmassnahmen;
     try {
       bildungsmassnahmen = findByBildungstraegerQuery.getResultList();
@@ -106,7 +105,7 @@ public class BildungsmassnahmeDbIntegrationsService {
    * @param name Name der Bildungsmassnahme als Suchparameter
    * @return Liste von gefundenen entitäten oder eine leere Liste wenn keine entität existiert
    */
-  public List<Bildungsmassnahme> suchenAnhandDesNamen(String name) {
+  public List<Bildungsmassnahme> sucheAnhandDesNamen(String name) {
     TypedQuery<Bildungsmassnahme> findByNameQuery = em.createQuery(
       "SELECT DISTINCT b FROM Bildungsmassnahme b WHERE b.name = :name ORDER BY b.id", Bildungsmassnahme.class);
     findByNameQuery.setParameter("name", name);

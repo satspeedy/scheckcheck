@@ -42,7 +42,7 @@ public class BewertungDbIntegrationsService {
    * @param bewertung Bewertung
    * @return zusammengeführte instance
    */
-  public Bewertung speichern(Bewertung bewertung) {
+  public Bewertung speicher(Bewertung bewertung) {
     Bewertung gespeicherteBewertung = em.merge(bewertung);
     logger.info("Entity mit id " + gespeicherteBewertung.getId() + " gemerged!");
     return gespeicherteBewertung;
@@ -54,7 +54,7 @@ public class BewertungDbIntegrationsService {
    * @param id id der zu suchenden Bewertung.
    * @return gefundene entität oder null wenn keine entität existiert
    */
-  public Bewertung suchen(Long id) {
+  public Bewertung suche(Long id) {
     return em.find(Bewertung.class, id);
   }
 
@@ -63,7 +63,7 @@ public class BewertungDbIntegrationsService {
    *
    * @param bewertung Bewertung instanz
    */
-  public void loeschen(Bewertung bewertung) {
+  public void loesche(Bewertung bewertung) {
       em.remove(bewertung);
   }
 
