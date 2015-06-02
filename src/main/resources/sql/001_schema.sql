@@ -4,13 +4,25 @@
     -- --------REPLACE CODE BELOW----------------------------------------
     -- ------------------------------------------------------------------
 
+    alter table BEWERTUNG
+        drop
+        foreign key FK_he1koxjonyija9pbvsqo1gdk;
+
+    alter table BEWERTUNG
+        drop
+        foreign key FK_562abuy89xslar5t1mtxp4oye;
+
+    alter table BILDUNGSMASSNAHME
+        drop
+        foreign key FK_i4h3x64n0d27dpf7c343jyx07;
+
     drop table if exists BEWERTUNG;
+
+    drop table if exists BILDUNGSMASSNAHME;
 
     drop table if exists BILDUNGSTRAEGER;
 
-    drop table if exists BILDUNGS_MASSNAHME;
-
-    drop table if exists PORTAL_MITARBEITER;
+    drop table if exists PORTALMITARBEITER;
 
     drop table if exists TEILNEHMER;
 
@@ -20,6 +32,18 @@
         datum datetime,
         frei_text varchar(255),
         sternebewertung varchar(255),
+        bildungsmassnahme_id bigint not null,
+        teilnehmer_id bigint not null,
+        primary key (id)
+    ) ENGINE=InnoDB;
+
+    create table BILDUNGSMASSNAHME (
+        id bigint not null auto_increment,
+        optimisticLockingVersion bigint not null,
+        beschreibung varchar(255),
+        name varchar(255),
+        ort varchar(255),
+        bildungstraeger_id bigint not null,
         primary key (id)
     ) ENGINE=InnoDB;
 
@@ -34,16 +58,7 @@
         primary key (id)
     ) ENGINE=InnoDB;
 
-    create table BILDUNGS_MASSNAHME (
-        id bigint not null auto_increment,
-        optimisticLockingVersion bigint not null,
-        beschreibung varchar(255),
-        name varchar(255),
-        ort varchar(255),
-        primary key (id)
-    ) ENGINE=InnoDB;
-
-    create table PORTAL_MITARBEITER (
+    create table PORTALMITARBEITER (
         id bigint not null auto_increment,
         optimisticLockingVersion bigint not null,
         passwort varchar(255) not null,
@@ -64,11 +79,26 @@
         primary key (id)
     ) ENGINE=InnoDB;
 
-    alter table PORTAL_MITARBEITER
-        add constraint UK_6i1t39jmlkm739it1ic9x3cvt  unique (username);
+    alter table PORTALMITARBEITER
+        add constraint UK_bkyvbsliogxfug4kfiy3f4jk6  unique (username);
 
     alter table TEILNEHMER
         add constraint UK_ioqfx7fsnw31lelxdgjd6bp55  unique (username);
+
+    alter table BEWERTUNG
+        add constraint FK_he1koxjonyija9pbvsqo1gdk
+        foreign key (bildungsmassnahme_id)
+        references BILDUNGSMASSNAHME (id);
+
+    alter table BEWERTUNG
+        add constraint FK_562abuy89xslar5t1mtxp4oye
+        foreign key (teilnehmer_id)
+        references TEILNEHMER (id);
+
+    alter table BILDUNGSMASSNAHME
+        add constraint FK_i4h3x64n0d27dpf7c343jyx07
+        foreign key (bildungstraeger_id)
+        references BILDUNGSTRAEGER (id);
 
     -- ------------------------------------------------------------------
     -- --------REPLACE CODE ABOVE----------------------------------------

@@ -1,16 +1,18 @@
 package de.fst.scheckcheck.entitaet;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Entität Bildungsmaßnahme.
  */
 @Entity
-@Table(name = "BILDUNGS_MASSNAHME")
-@NamedQuery(name = BildungsMassnahme.NQ_FINDE_ALLE, query = "SELECT b FROM BildungsMassnahme b")
-public class BildungsMassnahme extends BasisEntitaet {
+@Table(name = "BILDUNGSMASSNAHME")
+@NamedQuery(name = Bildungsmassnahme.NQ_FINDE_ALLE, query = "SELECT b FROM Bildungsmassnahme b")
+public class Bildungsmassnahme extends BasisEntitaet {
 
-  public static final String NQ_FINDE_ALLE = "TrainingMeasure.findeAlle";
+  public static final String NQ_FINDE_ALLE = "Bildungsmassnahme.findeAlle";
 
   private static final long serialVersionUID = 1L;
 
@@ -20,7 +22,14 @@ public class BildungsMassnahme extends BasisEntitaet {
 
   private String beschreibung;
 
-  public BildungsMassnahme() {
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "bildungstraeger_id", nullable = false)
+  private Bildungstraeger bildungstraeger;
+
+  @OneToMany(mappedBy = "bildungsmassnahme", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+  private List<Bewertung> bewertungen = new ArrayList<>();
+
+  public Bildungsmassnahme() {
   }
 
   public String getName() {
@@ -46,4 +55,43 @@ public class BildungsMassnahme extends BasisEntitaet {
   public void setBeschreibung(String beschreibung) {
     this.beschreibung = beschreibung;
   }
+
+  public Bildungstraeger getBildungstraeger() {
+    return bildungstraeger;
+  }
+
+  /**
+   * Setzt Bildungstraeger.
+   *
+   * @param bildungstraeger bildungstraeger
+   */
+  public void setBildungstraeger(Bildungstraeger bildungstraeger) {
+    this.bildungstraeger = bildungstraeger;
+    if (bildungstraeger != null && !bildungstraeger.getBildungsmassnahmen().contains(this)) {
+      bildungstraeger.getBildungsmassnahmen().add(this);
+    }
+  }
+
+  public List<Bewertung> getBewertungen() {
+    return bewertungen;
+  }
+
+  public void setBewertungen(List<Bewertung> bewertungen) {
+    this.bewertungen = bewertungen;
+  }
+
+  /**
+   * Fügt der Bildungsmassnahme eine Bewertung hinzu.
+   *
+   * @param bewertung Bewertung
+   */
+  public void fuegeBewertungHinzu(Bewertung bewertung) {
+    if (bewertung != null) {
+      this.bewertungen.add(bewertung);
+      if (bewertung.getBildungsmassnahme() != this) {
+        bewertung.setBildungsmassnahme(this);
+      }
+    }
+  }
+
 }

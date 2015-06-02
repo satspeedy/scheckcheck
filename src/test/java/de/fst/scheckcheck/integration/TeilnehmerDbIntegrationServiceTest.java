@@ -21,10 +21,10 @@ import static org.hamcrest.Matchers.*;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives(TestRessourcenProduzent.class)
-public class TeilnehmerDatabaseIntegrationServiceTest {
+public class TeilnehmerDbIntegrationServiceTest {
 
   @Inject
-  private TeilnehmerDatabankIntegrationsService teilnehmerDatabankIntegrationsService;
+  private TeilnehmerDbIntegrationsService teilnehmerDbIntegrationsService;
 
   private EntityManagerFactory emf;
 
@@ -34,7 +34,7 @@ public class TeilnehmerDatabaseIntegrationServiceTest {
 
   @Before
   public void setUp() {
-    this.em = teilnehmerDatabankIntegrationsService.getEm();
+    this.em = teilnehmerDbIntegrationsService.getEm();
     this.emf = this.em.getEntityManagerFactory();
     this.et = this.em.getTransaction();
   }
@@ -50,7 +50,7 @@ public class TeilnehmerDatabaseIntegrationServiceTest {
     this.em.clear();
     this.em.close();
     this.em = this.emf.createEntityManager();
-    teilnehmerDatabankIntegrationsService.setEm(this.em);
+    teilnehmerDbIntegrationsService.setEm(this.em);
     this.et =  this.em.getTransaction();
   }
 
@@ -58,41 +58,41 @@ public class TeilnehmerDatabaseIntegrationServiceTest {
   public void shouldSave() {
     this.et.begin();
 
-    Teilnehmer entity = teilnehmerDatabankIntegrationsService.speichern(erzeugeTeilnehmer());
+    Teilnehmer entity = teilnehmerDbIntegrationsService.speichern(erzeugeTeilnehmer());
     assertThat(entity.getId(), equalTo(1L));
 
-    entity = teilnehmerDatabankIntegrationsService.speichern(erzeugeTeilnehmer());
+    entity = teilnehmerDbIntegrationsService.speichern(erzeugeTeilnehmer());
     assertThat(entity.getId(), equalTo(2L));
 
-    entity = teilnehmerDatabankIntegrationsService.speichern(erzeugeTeilnehmer());
+    entity = teilnehmerDbIntegrationsService.speichern(erzeugeTeilnehmer());
     assertThat(entity.getId(), equalTo(3L));
 
     this.et.commit();
     this.refreshEntityManager();
 
-    List<Teilnehmer> teilnehmers = teilnehmerDatabankIntegrationsService.listeAlleAuf();
+    List<Teilnehmer> teilnehmers = teilnehmerDbIntegrationsService.listeAlleAuf();
     assertThat(teilnehmers, contains(hasProperty("id", is(1L)), hasProperty("id", is(2L)), hasProperty("id", is(3L))));
   }
 
   @Test
   public void shouldUpdate() {
     this.et.begin();
-    Teilnehmer entity = teilnehmerDatabankIntegrationsService.speichern(erzeugeTeilnehmer());
+    Teilnehmer entity = teilnehmerDbIntegrationsService.speichern(erzeugeTeilnehmer());
     this.et.commit();
     this.refreshEntityManager();
 
-    entity = teilnehmerDatabankIntegrationsService.suchen(entity.getId());
+    entity = teilnehmerDbIntegrationsService.suchen(entity.getId());
     assertThat(entity, notNullValue());
     assertThat(entity.getOptimisticLockingVersion(), equalTo(0L));
     String updateName = "testname";
     entity.setVorname(updateName);
 
     this.et.begin();
-    teilnehmerDatabankIntegrationsService.speichern(entity);
+    teilnehmerDbIntegrationsService.speichern(entity);
     this.et.commit();
     this.refreshEntityManager();
 
-    entity = teilnehmerDatabankIntegrationsService.suchen(entity.getId());
+    entity = teilnehmerDbIntegrationsService.suchen(entity.getId());
     assertThat(entity, notNullValue());
     assertThat(entity.getVorname(), equalTo(updateName));
     assertThat(entity.getOptimisticLockingVersion(), equalTo(1L));
@@ -101,17 +101,17 @@ public class TeilnehmerDatabaseIntegrationServiceTest {
   @Test
   public void shouldDelete() {
     this.et.begin();
-    Teilnehmer entity = teilnehmerDatabankIntegrationsService.speichern(erzeugeTeilnehmer());
+    Teilnehmer entity = teilnehmerDbIntegrationsService.speichern(erzeugeTeilnehmer());
     this.et.commit();
     this.refreshEntityManager();
 
     this.et.begin();
-    entity =  teilnehmerDatabankIntegrationsService.suchen(entity.getId());
-    teilnehmerDatabankIntegrationsService.loeschen(entity);
+    entity =  teilnehmerDbIntegrationsService.suchen(entity.getId());
+    teilnehmerDbIntegrationsService.loeschen(entity);
     this.et.commit();
     this.refreshEntityManager();
 
-    entity = teilnehmerDatabankIntegrationsService.suchen(entity.getId());
+    entity = teilnehmerDbIntegrationsService.suchen(entity.getId());
     assertThat(entity, nullValue());
   }
 
@@ -121,11 +121,11 @@ public class TeilnehmerDatabaseIntegrationServiceTest {
     Teilnehmer entity = erzeugeTeilnehmer();
     String username = "Test-Username";
     entity.setUsername(username);
-    teilnehmerDatabankIntegrationsService.speichern(entity);
+    teilnehmerDbIntegrationsService.speichern(entity);
     this.et.commit();
     this.refreshEntityManager();
 
-    Teilnehmer result =  teilnehmerDatabankIntegrationsService.findByUsername(username);
+    Teilnehmer result =  teilnehmerDbIntegrationsService.findByUsername(username);
     assertThat(result, notNullValue());
     assertThat(result.getUsername(), equalTo(username));
   }

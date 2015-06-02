@@ -1,6 +1,8 @@
 package de.fst.scheckcheck.entitaet;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Entität Teilnehmer.
@@ -10,7 +12,7 @@ import javax.persistence.*;
 @NamedQuery(name = Teilnehmer.NQ_FINDE_ALLE, query = "SELECT t FROM Teilnehmer t")
 public class Teilnehmer extends Nutzer {
 
-  public static final String NQ_FINDE_ALLE = "Member.findeAlle";
+  public static final String NQ_FINDE_ALLE = "Teilnehmer.findeAlle";
 
   private static final long serialVersionUID = 1L;
 
@@ -23,6 +25,9 @@ public class Teilnehmer extends Nutzer {
 
   @Column(name = "kontaktaufnahme_kennzeichen", precision = 1)
   private Boolean kontaktaufnahmeKennzeichen;
+
+  @OneToMany(mappedBy = "teilnehmer", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+  private List<Bewertung> bewertungen = new ArrayList<>();
 
   public Teilnehmer() {
   }
@@ -57,6 +62,14 @@ public class Teilnehmer extends Nutzer {
 
   public void setKontaktaufnahmeKennzeichen(Boolean kontaktaufnahmeKennzeichen) {
     this.kontaktaufnahmeKennzeichen = kontaktaufnahmeKennzeichen;
+  }
+
+  public List<Bewertung> getBewertungen() {
+    return bewertungen;
+  }
+
+  public void setBewertungen(List<Bewertung> bewertungen) {
+    this.bewertungen = bewertungen;
   }
 
 }

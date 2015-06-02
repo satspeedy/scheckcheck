@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import static de.fst.scheckcheck.allgemein.TestDatenHelfer.erzeugeBewertung;
+import static de.fst.scheckcheck.allgemein.TestDatenHelfer.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -41,13 +41,37 @@ public class BewertungTest {
   @Test
   public void shouldSaveAndFind() {
     this.em.getTransaction().begin();
-    this.em.merge(erzeugeBewertung());
+
+    Bildungstraeger bildungstraeger =  this.em.merge(erzeugeBildungstraeger());
+
+    this.em.getTransaction().commit();
+    this.refreshEntityManager();
+    this.em.getTransaction().begin();
+
+    Bildungsmassnahme bildungsmassnahme = erzeugeBildungsmassnahme();
+    bildungsmassnahme.setBildungstraeger(bildungstraeger);
+    bildungsmassnahme = this.em.merge(bildungsmassnahme);
+
+    this.em.getTransaction().commit();
+    this.refreshEntityManager();
+    this.em.getTransaction().begin();
+
+    Teilnehmer teilnehmer = this.em.merge(erzeugeTeilnehmer());
+
+    this.em.getTransaction().commit();
+    this.refreshEntityManager();
+    this.em.getTransaction().begin();
+
+    Bewertung bewertung = erzeugeBewertung();
+    bewertung.setTeilnehmer(teilnehmer);
+    bewertung.setBildungsmassnahme(bildungsmassnahme);
+    this.em.merge(bewertung);
     this.em.getTransaction().commit();
 
     this.refreshEntityManager();
 
-    Bewertung bewertung = this.em.createNamedQuery(Bewertung.NQ_FINDE_ALLE, Bewertung.class).getSingleResult();
-    assertThat(bewertung, notNullValue());
-    assertThat(bewertung.getId(), notNullValue());
+    Bewertung result = this.em.createNamedQuery(Bewertung.NQ_FINDE_ALLE, Bewertung.class).getSingleResult();
+    assertThat(result, notNullValue());
+    assertThat(result.getId(), notNullValue());
   }
 }

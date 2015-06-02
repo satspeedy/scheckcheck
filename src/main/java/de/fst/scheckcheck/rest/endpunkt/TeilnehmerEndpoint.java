@@ -1,7 +1,7 @@
 package de.fst.scheckcheck.rest.endpunkt;
 
 import de.fst.scheckcheck.entitaet.Teilnehmer;
-import de.fst.scheckcheck.integration.TeilnehmerDatabankIntegrationsService;
+import de.fst.scheckcheck.integration.TeilnehmerDbIntegrationsService;
 import de.fst.scheckcheck.mapper.TeilnehmerMapper;
 import de.fst.scheckcheck.rest.ressource.TeilnehmerRO;
 
@@ -25,7 +25,7 @@ public class TeilnehmerEndpoint {
   private TeilnehmerMapper teilnehmerMapper;
 
   @Inject
-  private TeilnehmerDatabankIntegrationsService teilnehmerDatabankIntegrationsService;
+  private TeilnehmerDbIntegrationsService teilnehmerDbIntegrationsService;
 
   /**
    * Erzeuge einen Teilnehmer.
@@ -37,7 +37,7 @@ public class TeilnehmerEndpoint {
   @Consumes("application/json")
   public Response erzeuge(TeilnehmerRO ro) {
     Teilnehmer entity = teilnehmerMapper.vonRO(null, ro);
-    teilnehmerDatabankIntegrationsService.speichern(entity);
+    teilnehmerDbIntegrationsService.speichern(entity);
     return Response.created(
       UriBuilder.fromResource(TeilnehmerEndpoint.class).path(String.valueOf(entity.getId())).build())
       .build();
@@ -52,11 +52,11 @@ public class TeilnehmerEndpoint {
   @DELETE
   @Path("/{id:[0-9][0-9]*}")
   public Response loescheAnhandDerId(@PathParam("id") Long id) {
-    Teilnehmer teilnehmer = teilnehmerDatabankIntegrationsService.suchen(id);
+    Teilnehmer teilnehmer = teilnehmerDbIntegrationsService.suchen(id);
     if (teilnehmer == null) {
       return Response.status(Status.NOT_FOUND).build();
     }
-    teilnehmerDatabankIntegrationsService.loeschen(teilnehmer);
+    teilnehmerDbIntegrationsService.loeschen(teilnehmer);
     return Response.noContent().build();
   }
 
@@ -70,7 +70,7 @@ public class TeilnehmerEndpoint {
   @Path("/{id:[0-9][0-9]*}")
   @Produces("application/json")
   public Response sucheAnhandDerId(@PathParam("id") Long id) {
-    Teilnehmer teilnehmer = teilnehmerDatabankIntegrationsService.suchen(id);
+    Teilnehmer teilnehmer = teilnehmerDbIntegrationsService.suchen(id);
     if (teilnehmer == null) {
       return Response.status(Status.NOT_FOUND).build();
     }
@@ -88,7 +88,7 @@ public class TeilnehmerEndpoint {
   @Path("/username/{username:[a-zA-Z][a-zA-Z_0-9]*}")
   @Produces("application/json")
   public Response sucheAnhandDesUsername(@PathParam("username") String username) {
-    Teilnehmer teilnehmer = teilnehmerDatabankIntegrationsService.findByUsername(username);
+    Teilnehmer teilnehmer = teilnehmerDbIntegrationsService.findByUsername(username);
     if (teilnehmer == null) {
       return Response.status(Status.NOT_FOUND).build();
     }
@@ -104,7 +104,7 @@ public class TeilnehmerEndpoint {
   @GET
   @Produces("application/json")
   public Response listeAlleAuf() {
-    List<Teilnehmer> teilnehmers = teilnehmerDatabankIntegrationsService.listeAlleAuf();
+    List<Teilnehmer> teilnehmers = teilnehmerDbIntegrationsService.listeAlleAuf();
     final List<TeilnehmerRO> results = new ArrayList<>();
     for (Teilnehmer teilnehmer : teilnehmers) {
       TeilnehmerRO ro = teilnehmerMapper.vonEntitaet(null, teilnehmer);
@@ -124,9 +124,9 @@ public class TeilnehmerEndpoint {
   @Path("/{id:[0-9][0-9]*}")
   @Consumes("application/json")
   public Response update(@PathParam("id") Long id, TeilnehmerRO ro) {
-    Teilnehmer entity = teilnehmerDatabankIntegrationsService.suchen(id);
+    Teilnehmer entity = teilnehmerDbIntegrationsService.suchen(id);
     entity = teilnehmerMapper.vonRO(entity, ro);
-    teilnehmerDatabankIntegrationsService.speichern(entity);
+    teilnehmerDbIntegrationsService.speichern(entity);
     return Response.noContent().build();
   }
 

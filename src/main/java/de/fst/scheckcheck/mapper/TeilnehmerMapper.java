@@ -10,6 +10,8 @@ import javax.persistence.OptimisticLockException;
  */
 public class TeilnehmerMapper {
 
+  private KonfigurierterMapper mapper = new KonfigurierterMapper();
+
   /**
    * Mapped von Entität nach Resource object.
    *
@@ -22,14 +24,23 @@ public class TeilnehmerMapper {
       ro = new TeilnehmerRO();
     }
     if (entity != null) {
-      ro.setId(entity.getId());
-      ro.setOptimisticLockingVersion(entity.getOptimisticLockingVersion());
-      ro.setUsername(entity.getUsername());
-      ro.setPasswort(entity.getPasswort());
-      ro.setVorname(entity.getVorname());
-      ro.setNachname(entity.getNachname());
-      ro.setNewsletterKennzeichen(entity.getNewsletterKennzeichen());
-      ro.setKontaktaufnahmeKennzeichen(entity.getKontaktaufnahmeKennzeichen());
+      mapper.map(entity, ro);
+//      ro.setId(entity.getId());
+//      ro.setOptimisticLockingVersion(entity.getOptimisticLockingVersion());
+//      ro.setUsername(entity.getUsername());
+//      ro.setPasswort(entity.getPasswort());
+//      ro.setVorname(entity.getVorname());
+//      ro.setNachname(entity.getNachname());
+//      ro.setNewsletterKennzeichen(entity.getNewsletterKennzeichen());
+//      ro.setKontaktaufnahmeKennzeichen(entity.getKontaktaufnahmeKennzeichen());
+//
+//      ro.setBewertungen(entity.getBewertungen());
+//      final List<TeilnehmerRO> results = new ArrayList<>();
+//      for (Bewertung bewertung : entity.getBewertungen()) {
+//        BewertungRO bewertungRO = bewertungMapper.vonEntitaet(null, bewertung);
+//        ro.getBewertungen().add(bewertungRO);
+//      }
+//
     }
     return ro;
   }
@@ -55,12 +66,14 @@ public class TeilnehmerMapper {
       if (ro.getOptimisticLockingVersion() != null) {
         entity.setOptimisticLockingVersion(ro.getOptimisticLockingVersion());
       }
-      entity.setUsername(ro.getUsername());
-      entity.setPasswort(ro.getPasswort());
-      entity.setVorname(ro.getVorname());
-      entity.setNachname(ro.getNachname());
-      entity.setNewsletterKennzeichen(ro.getNewsletterKennzeichen());
-      entity.setKontaktaufnahmeKennzeichen(ro.getKontaktaufnahmeKennzeichen());
+      mapper.map(ro, entity);
+//      entity.setUsername(ro.getUsername());
+//      entity.setPasswort(ro.getPasswort());
+//      entity.setVorname(ro.getVorname());
+//      entity.setNachname(ro.getNachname());
+//      entity.setNewsletterKennzeichen(ro.getNewsletterKennzeichen());
+//      entity.setKontaktaufnahmeKennzeichen(ro.getKontaktaufnahmeKennzeichen());
+//      entity.setBewertungen(ro.getBewertungen());
     }
     return entity;
   }

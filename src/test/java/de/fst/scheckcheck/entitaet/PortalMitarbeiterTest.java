@@ -9,11 +9,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import static de.fst.scheckcheck.allgemein.TestDatenHelfer.erzeugePortalMitarbeiter;
+import static de.fst.scheckcheck.allgemein.TestDatenHelfer.erzeugePortalmitarbeiter;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class PortalMitarbeiterTest {
+public class PortalmitarbeiterTest {
 
   private EntityManager em;
 
@@ -41,13 +41,13 @@ public class PortalMitarbeiterTest {
   @Test
   public void shouldSaveAndFind() {
     this.em.getTransaction().begin();
-    this.em.merge(erzeugePortalMitarbeiter());
+    this.em.merge(erzeugePortalmitarbeiter());
     this.em.getTransaction().commit();
 
     this.refreshEntityManager();
 
-    PortalMitarbeiter portalMitarbeiter = this.em.createNamedQuery(PortalMitarbeiter.NQ_FINDE_ALLE, PortalMitarbeiter.class).getSingleResult();
-    assertThat(portalMitarbeiter, notNullValue());
-    assertThat(portalMitarbeiter.getId(), notNullValue());
+    Portalmitarbeiter portalmitarbeiter = this.em.createNamedQuery(Portalmitarbeiter.NQ_FINDE_ALLE, Portalmitarbeiter.class).getSingleResult();
+    assertThat(portalmitarbeiter, notNullValue());
+    assertThat(portalmitarbeiter.getId(), notNullValue());
   }
 }

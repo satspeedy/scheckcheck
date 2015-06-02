@@ -1,6 +1,10 @@
 package de.fst.scheckcheck.rest.ressource;
 
+import de.fst.scheckcheck.entitaet.Bewertung;
+
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Ressourcen Objekt für {@link de.fst.scheckcheck.entitaet.Teilnehmer}.
@@ -26,21 +30,27 @@ public class TeilnehmerRO implements BasisRO {
 
   private Boolean kontaktaufnahmeKennzeichen;
 
+  private List<Bewertung> bewertungen = new ArrayList<>();
+
   public TeilnehmerRO() {
   }
 
+  @Override
   public Long getId() {
     return id;
   }
 
+  @Override
   public void setId(Long id) {
     this.id = id;
   }
 
+  @Override
   public Long getOptimisticLockingVersion() {
     return optimisticLockingVersion;
   }
 
+  @Override
   public void setOptimisticLockingVersion(Long optimisticLockingVersion) {
     this.optimisticLockingVersion = optimisticLockingVersion;
   }
@@ -91,6 +101,14 @@ public class TeilnehmerRO implements BasisRO {
 
   public void setKontaktaufnahmeKennzeichen(Boolean kontaktaufnahmeKennzeichen) {
     this.kontaktaufnahmeKennzeichen = kontaktaufnahmeKennzeichen;
+  }
+
+  public List<Bewertung> getBewertungen() {
+    return bewertungen;
+  }
+
+  public void setBewertungen(List<Bewertung> bewertungen) {
+    this.bewertungen = bewertungen;
   }
 
 }

@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 /**
  * Datenbank Integrationsservice für Teilnehmer.
  */
-public class TeilnehmerDatabankIntegrationsService {
+public class TeilnehmerDbIntegrationsService {
 
   @Inject
   private Logger logger;

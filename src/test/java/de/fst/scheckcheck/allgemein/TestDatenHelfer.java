@@ -1,12 +1,9 @@
 package de.fst.scheckcheck.allgemein;
 
 import de.fst.scheckcheck.entitaet.*;
-import de.fst.scheckcheck.rest.ressource.BasisRO;
-import de.fst.scheckcheck.rest.ressource.TeilnehmerRO;
+import de.fst.scheckcheck.rest.ressource.*;
 
-import java.util.Date;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Helfer Funktionen für Testdaten
@@ -35,12 +32,12 @@ public class TestDatenHelfer {
     return bewertung;
   }
 
-  public static BildungsMassnahme erzeugeBildungsMassnahme() {
-    BildungsMassnahme bildungsMassnahme = new BildungsMassnahme();
-    bildungsMassnahme.setName("IT-Grundkurs");
-    bildungsMassnahme.setOrt("Dortmund");
-    bildungsMassnahme.setBeschreibung("In diesem Kurs werden grundlegende IT-Kenntnisse erlernt.");
-    return bildungsMassnahme;
+  public static Bildungsmassnahme erzeugeBildungsmassnahme() {
+    Bildungsmassnahme bildungsmassnahme = new Bildungsmassnahme();
+    bildungsmassnahme.setName("IT-Grundkurs");
+    bildungsmassnahme.setOrt("Dortmund");
+    bildungsmassnahme.setBeschreibung("In diesem Kurs werden grundlegende IT-Kenntnisse erlernt.");
+    return bildungsmassnahme;
   }
 
   public static Bildungstraeger erzeugeBildungstraeger() {
@@ -53,12 +50,12 @@ public class TestDatenHelfer {
     return bildungstraeger;
   }
 
-  public static PortalMitarbeiter erzeugePortalMitarbeiter() {
-    PortalMitarbeiter PortalMitarbeiter = new PortalMitarbeiter();
-    PortalMitarbeiter.setPasswort("passwort");
-    PortalMitarbeiter.setUsername("username" + UUID.randomUUID());
-    PortalMitarbeiter.setAdministrationsRolle(true);
-    return PortalMitarbeiter;
+  public static Portalmitarbeiter erzeugePortalmitarbeiter() {
+    Portalmitarbeiter Portalmitarbeiter = new Portalmitarbeiter();
+    Portalmitarbeiter.setPasswort("passwort");
+    Portalmitarbeiter.setUsername("username" + UUID.randomUUID());
+    Portalmitarbeiter.setAdministrationsRolle(true);
+    return Portalmitarbeiter;
   }
 
   public static BasisEntitaet setzeEntitaetIdUndVersion(BasisEntitaet entitaet) {
@@ -76,6 +73,32 @@ public class TestDatenHelfer {
     teilnehmerRO.setKontaktaufnahmeKennzeichen(true);
     teilnehmerRO.setNewsletterKennzeichen(true);
     return teilnehmerRO;
+  }
+
+  public static BewertungRO erzeugeBewertungRO() {
+    BewertungRO bewertungRO = new BewertungRO();
+    bewertungRO.setDatum(new Date());
+    bewertungRO.setSternebewertung("5");
+    bewertungRO.setFreiText("Freitext");
+    return bewertungRO;
+  }
+
+  public static BildungsmassnahmeRO erzeugeBildungsmassnahmeRO() {
+    BildungsmassnahmeRO bildungsmassnahmeRO = new BildungsmassnahmeRO();
+    bildungsmassnahmeRO.setName("name");
+    bildungsmassnahmeRO.setOrt("ort");
+    bildungsmassnahmeRO.setBeschreibung("beschreibung");
+    return bildungsmassnahmeRO;
+  }
+
+  public static BildungstraegerRO erzeugeBildungstraegerRO() {
+    BildungstraegerRO bildungstraegerRO = new BildungstraegerRO();
+    bildungstraegerRO.setName("name");
+    bildungstraegerRO.setOrt("ort");
+    bildungstraegerRO.setKontaktdaten("kontaktdaten");
+    bildungstraegerRO.setBeschreibung("beschreibung");
+    bildungstraegerRO.setAngebot("angebot");
+    return bildungstraegerRO;
   }
 
   public static BasisRO setzeROIdUndVersion(BasisRO ro) {

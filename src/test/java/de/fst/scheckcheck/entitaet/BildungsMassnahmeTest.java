@@ -9,11 +9,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import static de.fst.scheckcheck.allgemein.TestDatenHelfer.erzeugeBildungsMassnahme;
+import static de.fst.scheckcheck.allgemein.TestDatenHelfer.erzeugeBildungsmassnahme;
+import static de.fst.scheckcheck.allgemein.TestDatenHelfer.erzeugeBildungstraeger;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class BildungsMassnahmeTest {
+public class BildungsmassnahmeTest {
 
   private EntityManager em;
 
@@ -41,13 +42,22 @@ public class BildungsMassnahmeTest {
   @Test
   public void shouldSaveAndFind() {
     this.em.getTransaction().begin();
-    this.em.merge(erzeugeBildungsMassnahme());
-    this.em.getTransaction().commit();
 
+    Bildungstraeger bildungstraeger = this.em.merge(erzeugeBildungstraeger());
+
+    this.em.getTransaction().commit();
+    this.refreshEntityManager();
+    this.em.getTransaction().begin();
+
+    Bildungsmassnahme bildungsmassnahme = erzeugeBildungsmassnahme();
+    bildungsmassnahme.setBildungstraeger(bildungstraeger);
+    this.em.merge(bildungsmassnahme);
+
+    this.em.getTransaction().commit();
     this.refreshEntityManager();
 
-    BildungsMassnahme bildungsMassnahme = this.em.createNamedQuery(BildungsMassnahme.NQ_FINDE_ALLE, BildungsMassnahme.class).getSingleResult();
-    assertThat(bildungsMassnahme, notNullValue());
-    assertThat(bildungsMassnahme.getId(), notNullValue());
+    Bildungsmassnahme result = this.em.createNamedQuery(Bildungsmassnahme.NQ_FINDE_ALLE, Bildungsmassnahme.class).getSingleResult();
+    assertThat(result, notNullValue());
+    assertThat(result.getId(), notNullValue());
   }
 }

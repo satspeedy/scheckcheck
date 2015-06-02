@@ -9,18 +9,18 @@ import javax.persistence.Table;
  * Entität Portalmitarbeiter.
  */
 @Entity
-@Table(name = "PORTAL_MITARBEITER")
-@NamedQuery(name = PortalMitarbeiter.NQ_FINDE_ALLE, query = "SELECT p FROM PortalMitarbeiter p")
-public class PortalMitarbeiter extends Nutzer {
+@Table(name = "PORTALMITARBEITER")
+@NamedQuery(name = Portalmitarbeiter.NQ_FINDE_ALLE, query = "SELECT p FROM Portalmitarbeiter p")
+public class Portalmitarbeiter extends Nutzer {
 
-  public static final String NQ_FINDE_ALLE = "PortalMitarbeiter.findeAlle";
+  public static final String NQ_FINDE_ALLE = "Portalmitarbeiter.findeAlle";
 
   private static final long serialVersionUID = 1L;
 
   @Column(name = "administrations_rolle", precision = 1)
   private Boolean administrationsRolle;
 
-  public PortalMitarbeiter() {
+  public Portalmitarbeiter() {
   }
 
   public Boolean getAdministrationsRolle() {

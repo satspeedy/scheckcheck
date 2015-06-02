@@ -6,9 +6,9 @@
     <class>de.fst.scheckcheck.entitaet.Nutzer</class>
     <class>de.fst.scheckcheck.entitaet.Teilnehmer</class>
     <class>de.fst.scheckcheck.entitaet.Bewertung</class>
-    <class>de.fst.scheckcheck.entitaet.BildungsMassnahme</class>
+    <class>de.fst.scheckcheck.entitaet.Bildungsmassnahme</class>
     <class>de.fst.scheckcheck.entitaet.Bildungstraeger</class>
-    <class>de.fst.scheckcheck.entitaet.PortalMitarbeiter</class>
+    <class>de.fst.scheckcheck.entitaet.Portalmitarbeiter</class>
 
     <properties>
         <property name="hibernate.connection.url" value="jdbc:h2:mem:test;MODE=MySQL"/>
