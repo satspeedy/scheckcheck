@@ -85,7 +85,7 @@ public class TeilnehmerDbIntegrationsService {
    * @param username username
    * @return gefundene entität oder null wenn keine entität existiert
    */
-  public Teilnehmer findByUsername(String username) {
+  public Teilnehmer suchenAnhandDesUsername(String username) {
     TypedQuery<Teilnehmer> findByUsernameQuery = em.createQuery(
       "SELECT DISTINCT t FROM Teilnehmer t WHERE t.username = :username ORDER BY t.username", Teilnehmer.class);
     findByUsernameQuery.setParameter("username", username);

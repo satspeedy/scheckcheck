@@ -88,7 +88,7 @@ public class TeilnehmerEndpoint {
   @Path("/username/{username:[a-zA-Z][a-zA-Z_0-9]*}")
   @Produces("application/json")
   public Response sucheAnhandDesUsername(@PathParam("username") String username) {
-    Teilnehmer teilnehmer = teilnehmerDbIntegrationsService.findByUsername(username);
+    Teilnehmer teilnehmer = teilnehmerDbIntegrationsService.suchenAnhandDesUsername(username);
     if (teilnehmer == null) {
       return Response.status(Status.NOT_FOUND).build();
     }

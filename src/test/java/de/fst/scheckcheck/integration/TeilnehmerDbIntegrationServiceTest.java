@@ -125,7 +125,7 @@ public class TeilnehmerDbIntegrationServiceTest {
     this.et.commit();
     this.refreshEntityManager();
 
-    Teilnehmer result =  teilnehmerDbIntegrationsService.findByUsername(username);
+    Teilnehmer result =  teilnehmerDbIntegrationsService.suchenAnhandDesUsername(username);
     assertThat(result, notNullValue());
     assertThat(result.getUsername(), equalTo(username));
   }
