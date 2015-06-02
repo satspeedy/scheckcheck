@@ -35,7 +35,8 @@
         <dependency>
             <groupId>ma.glasnost.orika</groupId>
             <artifactId>orika-core</artifactId>
-            <version>1.4.5</version><!-- latest version -->
+            <version>1.4.5</version>
+            <!-- latest version -->
         </dependency>
         <!-- Test Dependencies -->
         <dependency>
@@ -78,6 +79,14 @@
         </repository>
     </repositories>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>miredot</id>
+            <name>MireDot Releases</name>
+            <url>http://nexus.qmino.com/content/repositories/miredot</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -99,6 +108,23 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.qmino</groupId>
+                <artifactId>miredot-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>restdoc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <licence>
+                        UHJvamVjdHxkZS5mc3Quc2NoZWNrY2hlY2t8MjAxNi0wNi0wMnxmYWxzZSNNQ3dDRkQvNmhYUU1JTnBUSnNQTkJEMHhjZmNxY09xdkFoUlFwVVFsd2hrVXR5WmhXQnFmcjR0eGl4cEJiQT09
+                    </licence>
+                </configuration>
             </plugin>
         </plugins>
 

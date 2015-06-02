@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Stateless
 @Path("/portalmitarbeiter")
-public class PortalmitarbeiterEndpoint {
+public class PortalmitarbeiterEndpunkt {
 
   @Inject
   private PortalmitarbeiterMapper portalmitarbeiterMapper;
@@ -39,7 +39,7 @@ public class PortalmitarbeiterEndpoint {
     Portalmitarbeiter entity = portalmitarbeiterMapper.vonRO(null, ro);
     portalmitarbeiterDbIntegrationsService.speicher(entity);
     return Response.created(
-      UriBuilder.fromResource(PortalmitarbeiterEndpoint.class).path(String.valueOf(entity.getId())).build())
+      UriBuilder.fromResource(PortalmitarbeiterEndpunkt.class).path(String.valueOf(entity.getId())).build())
       .build();
   }
 

@@ -1,7 +1,7 @@
 package de.fst.scheckcheck.rest.endpunkt;
 
 import de.fst.scheckcheck.entitaet.Bildungsmassnahme;
-import de.fst.scheckcheck.integration.BildungsmassnahmeDbIntegrationService;
+import de.fst.scheckcheck.integration.BildungsmassnahmeDbIntegrationsService;
 import de.fst.scheckcheck.mapper.BildungsmassnahmeMapper;
 import de.fst.scheckcheck.rest.ressource.BildungsmassnahmeRO;
 
@@ -19,13 +19,13 @@ import java.util.List;
  */
 @Stateless
 @Path("/bildungsmassnahme")
-public class BildungsmassnahmeEndpoint {
+public class BildungsmassnahmeEndpunkt {
 
   @Inject
   private BildungsmassnahmeMapper bildungsmassnahmeMapper;
 
   @Inject
-  private BildungsmassnahmeDbIntegrationService bildungsmassnahmeDbIntegrationService;
+  private BildungsmassnahmeDbIntegrationsService bildungsmassnahmeDbIntegrationsService;
 
   /**
    * Erzeuge eine Bildungsmassnahme.
@@ -37,9 +37,9 @@ public class BildungsmassnahmeEndpoint {
   @Consumes("application/json")
   public Response erzeuge(BildungsmassnahmeRO ro) {
     Bildungsmassnahme entity = bildungsmassnahmeMapper.vonRO(null, ro);
-    bildungsmassnahmeDbIntegrationService.speicher(entity);
+    bildungsmassnahmeDbIntegrationsService.speicher(entity);
     return Response.created(
-      UriBuilder.fromResource(BildungsmassnahmeEndpoint.class).path(String.valueOf(entity.getId())).build())
+      UriBuilder.fromResource(BildungsmassnahmeEndpunkt.class).path(String.valueOf(entity.getId())).build())
       .build();
   }
 
@@ -52,11 +52,11 @@ public class BildungsmassnahmeEndpoint {
   @DELETE
   @Path("/{id:[0-9][0-9]*}")
   public Response loesche(@PathParam("id") Long id) {
-    Bildungsmassnahme bildungsmassnahme = bildungsmassnahmeDbIntegrationService.suche(id);
+    Bildungsmassnahme bildungsmassnahme = bildungsmassnahmeDbIntegrationsService.suche(id);
     if (bildungsmassnahme == null) {
       return Response.status(Status.NOT_FOUND).build();
     }
-    bildungsmassnahmeDbIntegrationService.loeschen(bildungsmassnahme);
+    bildungsmassnahmeDbIntegrationsService.loeschen(bildungsmassnahme);
     return Response.noContent().build();
   }
 
@@ -70,7 +70,7 @@ public class BildungsmassnahmeEndpoint {
   @Path("/{id:[0-9][0-9]*}")
   @Produces("application/json")
   public Response suche(@PathParam("id") Long id) {
-    Bildungsmassnahme bildungsmassnahme = bildungsmassnahmeDbIntegrationService.suche(id);
+    Bildungsmassnahme bildungsmassnahme = bildungsmassnahmeDbIntegrationsService.suche(id);
     if (bildungsmassnahme == null) {
       return Response.status(Status.NOT_FOUND).build();
     }
@@ -88,7 +88,7 @@ public class BildungsmassnahmeEndpoint {
   @Path("/bildungstraeger/id/{id:[0-9][0-9]*}")
   @Produces("application/json")
   public Response sucheAnhandDerBildungstraegerId(@PathParam("id") Long bildungstraegerId) {
-    List<Bildungsmassnahme> bildungsmassnahmen = bildungsmassnahmeDbIntegrationService.sucheAnhandDerBildungstraegerId(bildungstraegerId);
+    List<Bildungsmassnahme> bildungsmassnahmen = bildungsmassnahmeDbIntegrationsService.sucheAnhandDerBildungstraegerId(bildungstraegerId);
     if (bildungsmassnahmen == null || bildungsmassnahmen.isEmpty()) {
       return Response.status(Status.NOT_FOUND).build();
     }
@@ -109,7 +109,7 @@ public class BildungsmassnahmeEndpoint {
   @Path("/name/{name:[a-zA-Z][a-zA-Z_0-9]*}")
   @Produces("application/json")
   public Response sucheAnhandDesNamen(@PathParam("name") String name) {
-    List<Bildungsmassnahme> bildungsmassnahmen = bildungsmassnahmeDbIntegrationService.sucheAnhandDesNamen(name);
+    List<Bildungsmassnahme> bildungsmassnahmen = bildungsmassnahmeDbIntegrationsService.sucheAnhandDesNamen(name);
     if (bildungsmassnahmen == null || bildungsmassnahmen.isEmpty()) {
       return Response.status(Status.NOT_FOUND).build();
     }
@@ -128,7 +128,7 @@ public class BildungsmassnahmeEndpoint {
   @GET
   @Produces("application/json")
   public Response listeAlleAuf() {
-    List<Bildungsmassnahme> bildungsmassnahmen = bildungsmassnahmeDbIntegrationService.listeAlleAuf();
+    List<Bildungsmassnahme> bildungsmassnahmen = bildungsmassnahmeDbIntegrationsService.listeAlleAuf();
     final List<BildungsmassnahmeRO> results = new ArrayList<>();
     for (Bildungsmassnahme bildungsmassnahme : bildungsmassnahmen) {
       BildungsmassnahmeRO ro = bildungsmassnahmeMapper.vonEntitaet(null, bildungsmassnahme);
@@ -148,9 +148,9 @@ public class BildungsmassnahmeEndpoint {
   @Path("/{id:[0-9][0-9]*}")
   @Consumes("application/json")
   public Response aktualisiere(@PathParam("id") Long id, BildungsmassnahmeRO ro) {
-    Bildungsmassnahme entity = bildungsmassnahmeDbIntegrationService.suche(id);
+    Bildungsmassnahme entity = bildungsmassnahmeDbIntegrationsService.suche(id);
     entity = bildungsmassnahmeMapper.vonRO(entity, ro);
-    bildungsmassnahmeDbIntegrationService.speicher(entity);
+    bildungsmassnahmeDbIntegrationsService.speicher(entity);
     return Response.noContent().build();
   }
 

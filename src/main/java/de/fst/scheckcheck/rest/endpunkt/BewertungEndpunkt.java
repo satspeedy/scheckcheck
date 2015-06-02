@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Stateless
 @Path("/bewertung")
-public class BewertungEndpoint {
+public class BewertungEndpunkt {
 
   @Inject
   private BewertungMapper bewertungMapper;
@@ -39,7 +39,7 @@ public class BewertungEndpoint {
     Bewertung entity = bewertungMapper.vonRO(null, ro);
     bewertungDbIntegrationsService.speicher(entity);
     return Response.created(
-      UriBuilder.fromResource(BewertungEndpoint.class).path(String.valueOf(entity.getId())).build())
+      UriBuilder.fromResource(BewertungEndpunkt.class).path(String.valueOf(entity.getId())).build())
       .build();
   }
 

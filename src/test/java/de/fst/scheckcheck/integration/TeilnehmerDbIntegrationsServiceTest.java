@@ -21,7 +21,7 @@ import static org.hamcrest.Matchers.*;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives(TestRessourcenProduzent.class)
-public class TeilnehmerDbIntegrationServiceTest {
+public class TeilnehmerDbIntegrationsServiceTest {
 
   @Inject
   private TeilnehmerDbIntegrationsService teilnehmerDbIntegrationsService;

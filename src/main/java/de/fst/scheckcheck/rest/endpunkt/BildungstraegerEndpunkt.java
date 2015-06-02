@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Stateless
 @Path("/bildungstraeger")
-public class BildungstraegerEndpoint {
+public class BildungstraegerEndpunkt {
 
   @Inject
   private BildungstraegerMapper bildungstraegerMapper;
@@ -39,7 +39,7 @@ public class BildungstraegerEndpoint {
     Bildungstraeger entity = bildungstraegerMapper.vonRO(null, ro);
     bildungstraegerDbIntegrationsService.speicher(entity);
     return Response.created(
-      UriBuilder.fromResource(BildungstraegerEndpoint.class).path(String.valueOf(entity.getId())).build())
+      UriBuilder.fromResource(BildungstraegerEndpunkt.class).path(String.valueOf(entity.getId())).build())
       .build();
   }
 

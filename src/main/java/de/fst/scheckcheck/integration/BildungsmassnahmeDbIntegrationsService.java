@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 /**
  * Datenbank Integrationsservice für Bildungsmassnahme.
  */
-public class BildungsmassnahmeDbIntegrationService {
+public class BildungsmassnahmeDbIntegrationsService {
 
   @Inject
   private Logger logger;
