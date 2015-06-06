@@ -1,3 +1,8 @@
 language: java
 jdk:
   - oraclejdk7
+deploy:
+  provider: openshift
+  user: satspeedy@hotmail.com
+  password: BcVTo9kqOoDyQO3gCVFuf0k35+XvsSOkxusVkH2l3IUfnbqYQRHuvOz6VoayGkGcJRY8TMv42gAvyMmD+Zrfsb2ceuN+LJe9uv9KQZe+SnwfTticux9JtZPTSVry9FM780/4XWorjyZi5gTCzyfptQstwuW/xFeqVT9gyhb20sQ=
+  domain: satspeedy
