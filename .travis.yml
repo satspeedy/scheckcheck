@@ -1,8 +1,12 @@
 language: java
 jdk:
-  - oraclejdk7
+- oraclejdk7
 deploy:
   provider: openshift
   user: satspeedy@hotmail.com
-  password: "BcVTo9kqOoDyQO3gCVFuf0k35+XvsSOkxusVkH2l3IUfnbqYQRHuvOz6VoayGkGcJRY8TMv42gAvyMmD+Zrfsb2ceuN+LJe9uv9KQZe+SnwfTticux9JtZPTSVry9FM780/4XWorjyZi5gTCzyfptQstwuW/xFeqVT9gyhb20sQ="
+  password:
+    secure: glHSj3JcjmagmyN3bwbhszG3EvchJfMb/kaR2wAUK6dCx8zsrIsOel8PBBzTKjPLJu594dpe3M8EjD0I69+TZdQX43uevh/sGYO7YoK+X9nYzSteBWa6dMqSK67pCyYBFlAMJ9/hpg2g9wVVeWUjIltyDSNkCkFZC/vqFc+uEo8=
+  app: scheckcheck
   domain: satspeedy
+  on:
+    repo: satspeedy/scheckcheck
