@@ -38,6 +38,12 @@
             <version>1.4.5</version>
             <!-- latest version -->
         </dependency>
+        <!-- Cors Filter Dependency -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>3.0.8.Final</version>
+        </dependency>
         <!-- Test Dependencies -->
         <dependency>
             <groupId>junit</groupId>
