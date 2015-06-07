@@ -39,10 +39,15 @@
             <!-- latest version -->
         </dependency>
         <!-- Cors Filter Dependency -->
+        <!--<dependency>-->
+            <!--<groupId>org.jboss.resteasy</groupId>-->
+            <!--<artifactId>resteasy-jaxrs</artifactId>-->
+            <!--<version>3.0.8.Final</version>-->
+        <!--</dependency>-->
         <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jaxrs</artifactId>
-            <version>3.0.8.Final</version>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>cors-filter</artifactId>
+            <version>2.1</version>
         </dependency>
         <!-- Test Dependencies -->
         <dependency>
