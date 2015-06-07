@@ -38,12 +38,7 @@
             <version>1.4.5</version>
             <!-- latest version -->
         </dependency>
-        <!-- Cors Filter Dependency -->
-        <!--<dependency>-->
-            <!--<groupId>org.jboss.resteasy</groupId>-->
-            <!--<artifactId>resteasy-jaxrs</artifactId>-->
-            <!--<version>3.0.8.Final</version>-->
-        <!--</dependency>-->
+        <!-- CORS Filter Dependency to allow requests from anywhere in dev -->
         <dependency>
             <groupId>com.thetransactioncompany</groupId>
             <artifactId>cors-filter</artifactId>
@@ -191,6 +186,28 @@
                         <configuration>
                             <hibernateDialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernateDialect>
                             <target>SCRIPT</target>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
+            <!-- Use this profile for any OpenShift specific customization your app will need. -->
+            <!-- By default that is to put the resulting archive into the 'deployments' folder. -->
+            <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+            <id>openshift</id>
+            <build>
+                <finalName>${project.artifactId}</finalName>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.3</version>
+                        <configuration>
+                            <failOnMissingWebXml>false</failOnMissingWebXml>
+                            <outputDirectory>deployments</outputDirectory>
+                            <warName>ROOT</warName>
                         </configuration>
                     </plugin>
                 </plugins>
