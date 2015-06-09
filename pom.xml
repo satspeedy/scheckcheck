@@ -36,7 +36,12 @@
             <groupId>ma.glasnost.orika</groupId>
             <artifactId>orika-core</artifactId>
             <version>1.4.5</version>
-            <!-- latest version -->
+        </dependency>
+        <!-- Email -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-email</artifactId>
+            <version>1.2</version>
         </dependency>
         <!-- CORS Filter Dependency to allow requests from anywhere in dev -->
         <dependency>
