@@ -17,6 +17,9 @@ public abstract class Nutzer extends BasisEntitaet {
   @Column(nullable = false)
   private String passwort;
 
+  @Column(nullable = false)
+  private String emailAddresse;
+
   public String getUsername() {
     return username;
   }
@@ -33,4 +36,11 @@ public abstract class Nutzer extends BasisEntitaet {
     this.passwort = passwort;
   }
 
+  public String getEmailAddresse() {
+    return emailAddresse;
+  }
+
+  public void setEmailAddresse(String emailAddresse) {
+    this.emailAddresse = emailAddresse;
+  }
 }

@@ -29,9 +29,15 @@
     create table BEWERTUNG (
         id bigint not null auto_increment,
         optimisticLockingVersion bigint not null,
+        bewertungAusstattung integer not null,
+        bewertungDozenten integer not null,
+        bewertungInhaltWeiterbildung integer not null,
+        bewertungLehrveranstaltungen integer not null,
+        bewertungOrganisation integer not null,
+        bewertungPraxisnaehe integer not null,
+        bewertungUmsetzungWeiterbildung integer not null,
         datum datetime,
         frei_text varchar(255),
-        sternebewertung varchar(255),
         bildungsmassnahme_id bigint not null,
         teilnehmer_id bigint not null,
         primary key (id)
@@ -61,6 +67,7 @@
     create table PORTALMITARBEITER (
         id bigint not null auto_increment,
         optimisticLockingVersion bigint not null,
+        emailAddresse varchar(255) not null,
         passwort varchar(255) not null,
         username varchar(255) not null,
         administrations_rolle bit,
@@ -70,6 +77,7 @@
     create table TEILNEHMER (
         id bigint not null auto_increment,
         optimisticLockingVersion bigint not null,
+        emailAddresse varchar(255) not null,
         passwort varchar(255) not null,
         username varchar(255) not null,
         kontaktaufnahme_kennzeichen bit,

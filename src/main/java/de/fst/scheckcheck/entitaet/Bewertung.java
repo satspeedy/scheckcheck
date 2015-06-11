@@ -17,7 +17,19 @@ public class Bewertung extends BasisEntitaet {
 
   private Date datum;
 
-  private String sternebewertung;
+  private int bewertungInhaltWeiterbildung;
+
+  private int bewertungUmsetzungWeiterbildung;
+
+  private int bewertungPraxisnaehe;
+
+  private int bewertungLehrveranstaltungen;
+
+  private int bewertungDozenten;
+
+  private int bewertungOrganisation;
+
+  private int bewertungAusstattung;
 
   @Column(name = "frei_text")
   private String freiText;
@@ -41,12 +53,60 @@ public class Bewertung extends BasisEntitaet {
     this.datum = datum;
   }
 
-  public String getSternebewertung() {
-    return sternebewertung;
+  public int getBewertungInhaltWeiterbildung() {
+    return bewertungInhaltWeiterbildung;
   }
 
-  public void setSternebewertung(String sternebewertung) {
-    this.sternebewertung = sternebewertung;
+  public void setBewertungInhaltWeiterbildung(int bewertungInhaltWeiterbildung) {
+    this.bewertungInhaltWeiterbildung = bewertungInhaltWeiterbildung;
+  }
+
+  public int getBewertungUmsetzungWeiterbildung() {
+    return bewertungUmsetzungWeiterbildung;
+  }
+
+  public void setBewertungUmsetzungWeiterbildung(int bewertungUmsetzungWeiterbildung) {
+    this.bewertungUmsetzungWeiterbildung = bewertungUmsetzungWeiterbildung;
+  }
+
+  public int getBewertungPraxisnaehe() {
+    return bewertungPraxisnaehe;
+  }
+
+  public void setBewertungPraxisnaehe(int bewertungPraxisnaehe) {
+    this.bewertungPraxisnaehe = bewertungPraxisnaehe;
+  }
+
+  public int getBewertungLehrveranstaltungen() {
+    return bewertungLehrveranstaltungen;
+  }
+
+  public void setBewertungLehrveranstaltungen(int bewertungLehrveranstaltungen) {
+    this.bewertungLehrveranstaltungen = bewertungLehrveranstaltungen;
+  }
+
+  public int getBewertungDozenten() {
+    return bewertungDozenten;
+  }
+
+  public void setBewertungDozenten(int bewertungDozenten) {
+    this.bewertungDozenten = bewertungDozenten;
+  }
+
+  public int getBewertungOrganisation() {
+    return bewertungOrganisation;
+  }
+
+  public void setBewertungOrganisation(int bewertungOrganisation) {
+    this.bewertungOrganisation = bewertungOrganisation;
+  }
+
+  public int getBewertungAusstattung() {
+    return bewertungAusstattung;
+  }
+
+  public void setBewertungAusstattung(int bewertungAusstattung) {
+    this.bewertungAusstattung = bewertungAusstattung;
   }
 
   public String getFreiText() {

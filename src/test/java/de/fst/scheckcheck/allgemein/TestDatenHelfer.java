@@ -17,6 +17,7 @@ public class TestDatenHelfer {
     Teilnehmer teilnehmer = new Teilnehmer();
     teilnehmer.setPasswort("passwort");
     teilnehmer.setUsername("username" + UUID.randomUUID());
+    teilnehmer.setEmailAddresse("email@addresse.de");
     teilnehmer.setVorname("vorname");
     teilnehmer.setNachname("nachname");
     teilnehmer.setKontaktaufnahmeKennzeichen(true);
@@ -27,7 +28,13 @@ public class TestDatenHelfer {
   public static Bewertung erzeugeBewertung() {
     Bewertung bewertung = new Bewertung();
     bewertung.setDatum(new Date());
-    bewertung.setSternebewertung("5");
+    bewertung.setBewertungInhaltWeiterbildung(5);
+    bewertung.setBewertungUmsetzungWeiterbildung(5);
+    bewertung.setBewertungPraxisnaehe(5);
+    bewertung.setBewertungLehrveranstaltungen(5);
+    bewertung.setBewertungDozenten(5);
+    bewertung.setBewertungOrganisation(5);
+    bewertung.setBewertungAusstattung(5);
     bewertung.setFreiText("Freitext");
     return bewertung;
   }
@@ -51,11 +58,12 @@ public class TestDatenHelfer {
   }
 
   public static Portalmitarbeiter erzeugePortalmitarbeiter() {
-    Portalmitarbeiter Portalmitarbeiter = new Portalmitarbeiter();
-    Portalmitarbeiter.setPasswort("passwort");
-    Portalmitarbeiter.setUsername("username" + UUID.randomUUID());
-    Portalmitarbeiter.setAdministrationsRolle(true);
-    return Portalmitarbeiter;
+    Portalmitarbeiter portalmitarbeiter = new Portalmitarbeiter();
+    portalmitarbeiter.setPasswort("passwort");
+    portalmitarbeiter.setUsername("username" + UUID.randomUUID());
+    portalmitarbeiter.setEmailAddresse("email@Addresse.de");
+    portalmitarbeiter.setAdministrationsRolle(true);
+    return portalmitarbeiter;
   }
 
   public static BasisEntitaet setzeEntitaetIdUndVersion(BasisEntitaet entitaet) {
@@ -68,6 +76,7 @@ public class TestDatenHelfer {
     TeilnehmerRO teilnehmerRO = new TeilnehmerRO();
     teilnehmerRO.setPasswort("passwort");
     teilnehmerRO.setUsername("username" + UUID.randomUUID());
+    teilnehmerRO.setEmailAddresse("email@Addresse.de");
     teilnehmerRO.setVorname("vorname");
     teilnehmerRO.setNachname("nachname");
     teilnehmerRO.setKontaktaufnahmeKennzeichen(true);
@@ -78,7 +87,13 @@ public class TestDatenHelfer {
   public static BewertungRO erzeugeBewertungRO() {
     BewertungRO bewertungRO = new BewertungRO();
     bewertungRO.setDatum(new Date());
-    bewertungRO.setSternebewertung("5");
+    bewertungRO.setBewertungInhaltWeiterbildung(5);
+    bewertungRO.setBewertungUmsetzungWeiterbildung(5);
+    bewertungRO.setBewertungPraxisnaehe(5);
+    bewertungRO.setBewertungLehrveranstaltungen(5);
+    bewertungRO.setBewertungDozenten(5);
+    bewertungRO.setBewertungOrganisation(5);
+    bewertungRO.setBewertungAusstattung(5);
     bewertungRO.setFreiText("Freitext");
     return bewertungRO;
   }

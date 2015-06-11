@@ -22,6 +22,8 @@ public class TeilnehmerRO implements BasisRO {
 
   private String passwort;
 
+  private String emailAddresse;
+
   private String vorname;
 
   private String nachname;
@@ -111,4 +113,11 @@ public class TeilnehmerRO implements BasisRO {
     this.bewertungen = bewertungen;
   }
 
+  public String getEmailAddresse() {
+    return emailAddresse;
+  }
+
+  public void setEmailAddresse(String emailAddresse) {
+    this.emailAddresse = emailAddresse;
+  }
 }

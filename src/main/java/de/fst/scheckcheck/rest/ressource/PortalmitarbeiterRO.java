@@ -14,6 +14,8 @@ public class PortalmitarbeiterRO implements BasisRO {
 
   private Long optimisticLockingVersion;
 
+  private String emailAddresse;
+
   private Boolean administrationsRolle;
 
   public PortalmitarbeiterRO() {
@@ -47,4 +49,11 @@ public class PortalmitarbeiterRO implements BasisRO {
     this.administrationsRolle = administrationsRolle;
   }
 
+  public String getEmailAddresse() {
+    return emailAddresse;
+  }
+
+  public void setEmailAddresse(String emailAddresse) {
+    this.emailAddresse = emailAddresse;
+  }
 }
