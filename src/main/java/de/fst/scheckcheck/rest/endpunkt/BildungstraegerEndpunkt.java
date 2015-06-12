@@ -1,6 +1,8 @@
 package de.fst.scheckcheck.rest.endpunkt;
 
+import de.fst.scheckcheck.entitaet.Bildungsmassnahme;
 import de.fst.scheckcheck.entitaet.Bildungstraeger;
+import de.fst.scheckcheck.integration.BildungsmassnahmeDbIntegrationsService;
 import de.fst.scheckcheck.integration.BildungstraegerDbIntegrationsService;
 import de.fst.scheckcheck.mapper.BildungstraegerMapper;
 import de.fst.scheckcheck.rest.ressource.BildungstraegerRO;
@@ -27,6 +29,9 @@ public class BildungstraegerEndpunkt {
   @Inject
   private BildungstraegerDbIntegrationsService bildungstraegerDbIntegrationsService;
 
+  @Inject
+  private BildungsmassnahmeDbIntegrationsService bildungsmassnahmeDbIntegrationsService;
+
   /**
    * Erzeuge eine Bildungstraeger.
    *
@@ -37,6 +42,11 @@ public class BildungstraegerEndpunkt {
   @Consumes("application/json")
   public Response erzeuge(BildungstraegerRO ro) {
     Bildungstraeger entity = bildungstraegerMapper.vonRO(null, ro);
+    // manuelles mapping
+    for (Long bildungsmassnahmeId : ro.getBildungsmassnahmeIds()) {
+      entity.getBildungsmassnahmen().add(bildungsmassnahmeDbIntegrationsService.suche(bildungsmassnahmeId));
+    }
+    // manuelles mapping
     bildungstraegerDbIntegrationsService.speicher(entity);
     return Response.created(
       UriBuilder.fromResource(BildungstraegerEndpunkt.class).path(String.valueOf(entity.getId())).build())
@@ -75,6 +85,11 @@ public class BildungstraegerEndpunkt {
       return Response.status(Status.NOT_FOUND).build();
     }
     BildungstraegerRO ro = bildungstraegerMapper.vonEntitaet(null, bildungstraeger);
+    // manuelles mapping
+    for (Bildungsmassnahme bildungsmassnahme : bildungstraeger.getBildungsmassnahmen()) {
+      ro.getBildungsmassnahmeIds().add(bildungsmassnahme.getId());
+    }
+    // manuelles mapping
     return Response.ok(ro).build();
   }
 
@@ -90,6 +105,11 @@ public class BildungstraegerEndpunkt {
     final List<BildungstraegerRO> results = new ArrayList<>();
     for (Bildungstraeger bildungstraeger : bildungstraegers) {
       BildungstraegerRO ro = bildungstraegerMapper.vonEntitaet(null, bildungstraeger);
+      // manuelles mapping
+      for (Bildungsmassnahme bildungsmassnahme : bildungstraeger.getBildungsmassnahmen()) {
+        ro.getBildungsmassnahmeIds().add(bildungsmassnahme.getId());
+      }
+      // manuelles mapping
       results.add(ro);
     }
     return Response.ok(results).build();
@@ -108,6 +128,11 @@ public class BildungstraegerEndpunkt {
   public Response aktualisiere(@PathParam("id") Long id, BildungstraegerRO ro) {
     Bildungstraeger entity = bildungstraegerDbIntegrationsService.suche(id);
     entity = bildungstraegerMapper.vonRO(entity, ro);
+    // manuelles mapping
+    for (Long bildungsmassnahmeId : ro.getBildungsmassnahmeIds()) {
+      entity.getBildungsmassnahmen().add(bildungsmassnahmeDbIntegrationsService.suche(bildungsmassnahmeId));
+    }
+    // manuelles mapping
     bildungstraegerDbIntegrationsService.speicher(entity);
     return Response.noContent().build();
   }

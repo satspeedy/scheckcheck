@@ -1,7 +1,10 @@
 package de.fst.scheckcheck.rest.endpunkt;
 
+import de.fst.scheckcheck.entitaet.Bewertung;
 import de.fst.scheckcheck.entitaet.Bildungsmassnahme;
+import de.fst.scheckcheck.integration.BewertungDbIntegrationsService;
 import de.fst.scheckcheck.integration.BildungsmassnahmeDbIntegrationsService;
+import de.fst.scheckcheck.integration.BildungstraegerDbIntegrationsService;
 import de.fst.scheckcheck.mapper.BildungsmassnahmeMapper;
 import de.fst.scheckcheck.rest.ressource.BildungsmassnahmeRO;
 
@@ -27,16 +30,30 @@ public class BildungsmassnahmeEndpunkt {
   @Inject
   private BildungsmassnahmeDbIntegrationsService bildungsmassnahmeDbIntegrationsService;
 
+  @Inject
+  private BildungstraegerDbIntegrationsService bildungstraegerDbIntegrationsService;
+
+  @Inject
+  private BewertungDbIntegrationsService bewertungDbIntegrationsService;
+
   /**
    * Erzeuge eine Bildungsmassnahme.
    *
    * @param ro Ressource Objekt
    * @return Response
+   *
+   * FIXME save redundant
    */
   @POST
   @Consumes("application/json")
   public Response erzeuge(BildungsmassnahmeRO ro) {
     Bildungsmassnahme entity = bildungsmassnahmeMapper.vonRO(null, ro);
+    // manuelles mapping
+    entity.setBildungstraeger(bildungstraegerDbIntegrationsService.suche(ro.getBildungstraegerId()));
+    for (Long bewertungId : ro.getBewertungIds()) {
+      entity.getBewertungen().add(bewertungDbIntegrationsService.suche(bewertungId));
+    }
+    // manuelles mapping
     bildungsmassnahmeDbIntegrationsService.speicher(entity);
     return Response.created(
       UriBuilder.fromResource(BildungsmassnahmeEndpunkt.class).path(String.valueOf(entity.getId())).build())
@@ -75,6 +92,12 @@ public class BildungsmassnahmeEndpunkt {
       return Response.status(Status.NOT_FOUND).build();
     }
     BildungsmassnahmeRO ro = bildungsmassnahmeMapper.vonEntitaet(null, bildungsmassnahme);
+    // manuelles mapping
+    ro.setBildungstraegerId(bildungsmassnahme.getId());
+    for (Bewertung bewertung : bildungsmassnahme.getBewertungen()) {
+      ro.getBewertungIds().add(bewertung.getId());
+    }
+    // manuelles mapping
     return Response.ok(ro).build();
   }
 
@@ -95,10 +118,17 @@ public class BildungsmassnahmeEndpunkt {
     final List<BildungsmassnahmeRO> results = new ArrayList<>();
     for (Bildungsmassnahme bildungsmassnahme : bildungsmassnahmen) {
       BildungsmassnahmeRO ro = bildungsmassnahmeMapper.vonEntitaet(null, bildungsmassnahme);
+      // manuelles mapping
+      ro.setBildungstraegerId(bildungsmassnahme.getId());
+      for (Bewertung bewertung : bildungsmassnahme.getBewertungen()) {
+        ro.getBewertungIds().add(bewertung.getId());
+      }
+      // manuelles mapping
       results.add(ro);
     }
     return Response.ok(results).build();
   }
+
   /**
    * Suche anhand des Namen.
    *
@@ -116,10 +146,17 @@ public class BildungsmassnahmeEndpunkt {
     final List<BildungsmassnahmeRO> results = new ArrayList<>();
     for (Bildungsmassnahme bildungsmassnahme : bildungsmassnahmen) {
       BildungsmassnahmeRO ro = bildungsmassnahmeMapper.vonEntitaet(null, bildungsmassnahme);
+      // manuelles mapping
+      ro.setBildungstraegerId(bildungsmassnahme.getId());
+      for (Bewertung bewertung : bildungsmassnahme.getBewertungen()) {
+        ro.getBewertungIds().add(bewertung.getId());
+      }
+      // manuelles mapping
       results.add(ro);
     }
     return Response.ok(results).build();
   }
+
   /**
    * Liste alle Bildungsmassnahmen auf.
    *
@@ -132,6 +169,12 @@ public class BildungsmassnahmeEndpunkt {
     final List<BildungsmassnahmeRO> results = new ArrayList<>();
     for (Bildungsmassnahme bildungsmassnahme : bildungsmassnahmen) {
       BildungsmassnahmeRO ro = bildungsmassnahmeMapper.vonEntitaet(null, bildungsmassnahme);
+      // manuelles mapping
+      ro.setBildungstraegerId(bildungsmassnahme.getId());
+      for (Bewertung bewertung : bildungsmassnahme.getBewertungen()) {
+        ro.getBewertungIds().add(bewertung.getId());
+      }
+      // manuelles mapping
       results.add(ro);
     }
     return Response.ok(results).build();
@@ -150,6 +193,12 @@ public class BildungsmassnahmeEndpunkt {
   public Response aktualisiere(@PathParam("id") Long id, BildungsmassnahmeRO ro) {
     Bildungsmassnahme entity = bildungsmassnahmeDbIntegrationsService.suche(id);
     entity = bildungsmassnahmeMapper.vonRO(entity, ro);
+    // manuelles mapping
+    entity.setBildungstraeger(bildungstraegerDbIntegrationsService.suche(ro.getBildungstraegerId()));
+    for (Long bewertungId : ro.getBewertungIds()) {
+      entity.getBewertungen().add(bewertungDbIntegrationsService.suche(bewertungId));
+    }
+    // manuelles mapping
     bildungsmassnahmeDbIntegrationsService.speicher(entity);
     return Response.noContent().build();
   }

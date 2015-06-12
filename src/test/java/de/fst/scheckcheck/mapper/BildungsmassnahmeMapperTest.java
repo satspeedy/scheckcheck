@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import static de.fst.scheckcheck.allgemein.TestDatenHelfer.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 
 @RunWith(CdiRunner.class)
 public class BildungsmassnahmeMapperTest {
@@ -36,10 +37,11 @@ public class BildungsmassnahmeMapperTest {
     assertThat(ro.getOrt(), equalTo(entitaet.getOrt()));
     assertThat(ro.getBeschreibung(), notNullValue());
     assertThat(ro.getBeschreibung(), equalTo(entitaet.getBeschreibung()));
-    assertThat(ro.getBildungstraeger(), nullValue());
-    assertThat(ro.getBildungstraeger(), equalTo(entitaet.getBildungstraeger()));
-    assertThat(ro.getBewertungen(), notNullValue());
-    assertThat(ro.getBewertungen(), equalTo(entitaet.getBewertungen()));
+    assertThat(ro.getBildungstraegerId(), nullValue());
+    assertThat(entitaet.getBildungstraeger(), nullValue());
+    assertThat(ro.getBewertungIds(), notNullValue());
+    assertThat(ro.getBewertungIds(), hasSize(0));
+    assertThat(entitaet.getBewertungen(), hasSize(0));
   }
 
   @Test
@@ -61,9 +63,11 @@ public class BildungsmassnahmeMapperTest {
     assertThat(entitaet.getBeschreibung(), notNullValue());
     assertThat(entitaet.getBeschreibung(), equalTo(ro.getBeschreibung()));
     assertThat(entitaet.getBildungstraeger(), nullValue());
-    assertThat(entitaet.getBildungstraeger(), equalTo(ro.getBildungstraeger()));
+    assertThat(ro.getBildungstraegerId(), nullValue());
     assertThat(entitaet.getBewertungen(), notNullValue());
-    assertThat(entitaet.getBewertungen(), equalTo(ro.getBewertungen()));
+    assertThat(entitaet.getBewertungen(), hasSize(0));
+    assertThat(ro.getBewertungIds(), notNullValue());
+    assertThat(ro.getBewertungIds(), hasSize(0));
   }
 
 }

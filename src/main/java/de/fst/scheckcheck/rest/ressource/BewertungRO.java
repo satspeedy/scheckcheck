@@ -1,8 +1,5 @@
 package de.fst.scheckcheck.rest.ressource;
 
-import de.fst.scheckcheck.entitaet.Bildungsmassnahme;
-import de.fst.scheckcheck.entitaet.Teilnehmer;
-
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
@@ -36,9 +33,9 @@ public class BewertungRO implements BasisRO {
 
   private String freiText;
 
-  private Teilnehmer teilnehmer;
+  private Long teilnehmerId;
 
-  private Bildungsmassnahme bildungsmassnahme;
+  private Long bildungsmassnahmeId;
 
   public BewertungRO() {
   }
@@ -135,20 +132,19 @@ public class BewertungRO implements BasisRO {
     this.freiText = freiText;
   }
 
-  public Teilnehmer getTeilnehmer() {
-    return teilnehmer;
+  public Long getTeilnehmerId() {
+    return teilnehmerId;
   }
 
-  public void setTeilnehmer(Teilnehmer teilnehmer) {
-    this.teilnehmer = teilnehmer;
+  public void setTeilnehmerId(Long teilnehmerId) {
+    this.teilnehmerId = teilnehmerId;
   }
 
-  public Bildungsmassnahme getBildungsmassnahme() {
-    return bildungsmassnahme;
+  public Long getBildungsmassnahmeId() {
+    return bildungsmassnahmeId;
   }
 
-  public void setBildungsmassnahme(Bildungsmassnahme bildungsmassnahme) {
-    this.bildungsmassnahme = bildungsmassnahme;
+  public void setBildungsmassnahmeId(Long bildungsmassnahmeId) {
+    this.bildungsmassnahmeId = bildungsmassnahmeId;
   }
-
 }

@@ -1,6 +1,8 @@
 package de.fst.scheckcheck.rest.endpunkt;
 
+import de.fst.scheckcheck.entitaet.Bewertung;
 import de.fst.scheckcheck.entitaet.Teilnehmer;
+import de.fst.scheckcheck.integration.BewertungDbIntegrationsService;
 import de.fst.scheckcheck.integration.TeilnehmerDbIntegrationsService;
 import de.fst.scheckcheck.mapper.TeilnehmerMapper;
 import de.fst.scheckcheck.rest.ressource.TeilnehmerRO;
@@ -27,6 +29,9 @@ public class TeilnehmerEndpunkt {
   @Inject
   private TeilnehmerDbIntegrationsService teilnehmerDbIntegrationsService;
 
+  @Inject
+  private BewertungDbIntegrationsService bewertungDbIntegrationsService;
+
   /**
    * Erzeuge einen Teilnehmer.
    *
@@ -37,6 +42,11 @@ public class TeilnehmerEndpunkt {
   @Consumes("application/json")
   public Response erzeuge(TeilnehmerRO ro) {
     Teilnehmer entity = teilnehmerMapper.vonRO(null, ro);
+    // manuelles mapping
+    for (Long bewertungId : ro.getBewertungIds()) {
+      entity.getBewertungen().add(bewertungDbIntegrationsService.suche(bewertungId));
+    }
+    // manuelles mapping
     teilnehmerDbIntegrationsService.speicher(entity);
     return Response.created(
       UriBuilder.fromResource(TeilnehmerEndpunkt.class).path(String.valueOf(entity.getId())).build())
@@ -75,6 +85,11 @@ public class TeilnehmerEndpunkt {
       return Response.status(Status.NOT_FOUND).build();
     }
     TeilnehmerRO ro = teilnehmerMapper.vonEntitaet(null, teilnehmer);
+    // manuelles mapping
+    for (Bewertung bewertung : teilnehmer.getBewertungen()) {
+      ro.getBewertungIds().add(bewertung.getId());
+    }
+    // manuelles mapping
     return Response.ok(ro).build();
   }
 
@@ -93,6 +108,11 @@ public class TeilnehmerEndpunkt {
       return Response.status(Status.NOT_FOUND).build();
     }
     TeilnehmerRO ro = teilnehmerMapper.vonEntitaet(null, teilnehmer);
+    // manuelles mapping
+    for (Bewertung bewertung : teilnehmer.getBewertungen()) {
+      ro.getBewertungIds().add(bewertung.getId());
+    }
+    // manuelles mapping
     return Response.ok(ro).build();
   }
 
@@ -108,6 +128,11 @@ public class TeilnehmerEndpunkt {
     final List<TeilnehmerRO> results = new ArrayList<>();
     for (Teilnehmer teilnehmer : teilnehmers) {
       TeilnehmerRO ro = teilnehmerMapper.vonEntitaet(null, teilnehmer);
+      // manuelles mapping
+      for (Bewertung bewertung : teilnehmer.getBewertungen()) {
+        ro.getBewertungIds().add(bewertung.getId());
+      }
+      // manuelles mapping
       results.add(ro);
     }
     return Response.ok(results).build();
@@ -126,6 +151,11 @@ public class TeilnehmerEndpunkt {
   public Response aktualisiere(@PathParam("id") Long id, TeilnehmerRO ro) {
     Teilnehmer entity = teilnehmerDbIntegrationsService.suche(id);
     entity = teilnehmerMapper.vonRO(entity, ro);
+    // manuelles mapping
+    for (Long bewertungId : ro.getBewertungIds()) {
+      entity.getBewertungen().add(bewertungDbIntegrationsService.suche(bewertungId));
+    }
+    // manuelles mapping
     teilnehmerDbIntegrationsService.speicher(entity);
     return Response.noContent().build();
   }

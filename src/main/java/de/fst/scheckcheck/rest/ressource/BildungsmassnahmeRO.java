@@ -1,8 +1,5 @@
 package de.fst.scheckcheck.rest.ressource;
 
-import de.fst.scheckcheck.entitaet.Bewertung;
-import de.fst.scheckcheck.entitaet.Bildungstraeger;
-
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +22,9 @@ public class BildungsmassnahmeRO implements BasisRO {
 
   private String beschreibung;
 
-  private Bildungstraeger bildungstraeger;
+  private Long bildungstraegerId;
 
-  private List<Bewertung> bewertungen = new ArrayList<>();
+  private List<Long> bewertungIds = new ArrayList<>();
 
   public BildungsmassnahmeRO() {
   }
@@ -76,19 +73,19 @@ public class BildungsmassnahmeRO implements BasisRO {
     this.beschreibung = beschreibung;
   }
 
-  public Bildungstraeger getBildungstraeger() {
-    return bildungstraeger;
+  public Long getBildungstraegerId() {
+    return bildungstraegerId;
   }
 
-  public void setBildungstraeger(Bildungstraeger bildungstraeger) {
-    this.bildungstraeger = bildungstraeger;
+  public void setBildungstraegerId(Long bildungstraegerId) {
+    this.bildungstraegerId = bildungstraegerId;
   }
 
-  public List<Bewertung> getBewertungen() {
-    return bewertungen;
+  public List<Long> getBewertungIds() {
+    return bewertungIds;
   }
 
-  public void setBewertungen(List<Bewertung> bewertungen) {
-    this.bewertungen = bewertungen;
+  public void setBewertungIds(List<Long> bewertungIds) {
+    this.bewertungIds = bewertungIds;
   }
 }

@@ -25,22 +25,6 @@ public class TeilnehmerMapper {
     }
     if (entity != null) {
       mapper.map(entity, ro);
-//      ro.setId(entity.getId());
-//      ro.setOptimisticLockingVersion(entity.getOptimisticLockingVersion());
-//      ro.setUsername(entity.getUsername());
-//      ro.setPasswort(entity.getPasswort());
-//      ro.setVorname(entity.getVorname());
-//      ro.setNachname(entity.getNachname());
-//      ro.setNewsletterKennzeichen(entity.getNewsletterKennzeichen());
-//      ro.setKontaktaufnahmeKennzeichen(entity.getKontaktaufnahmeKennzeichen());
-//
-//      ro.setBewertungen(entity.getBewertungen());
-//      final List<TeilnehmerRO> results = new ArrayList<>();
-//      for (Bewertung bewertung : entity.getBewertungen()) {
-//        BewertungRO bewertungRO = bewertungMapper.vonEntitaet(null, bewertung);
-//        ro.getBewertungen().add(bewertungRO);
-//      }
-//
     }
     return ro;
   }
@@ -67,13 +51,6 @@ public class TeilnehmerMapper {
         entity.setOptimisticLockingVersion(ro.getOptimisticLockingVersion());
       }
       mapper.map(ro, entity);
-//      entity.setUsername(ro.getUsername());
-//      entity.setPasswort(ro.getPasswort());
-//      entity.setVorname(ro.getVorname());
-//      entity.setNachname(ro.getNachname());
-//      entity.setNewsletterKennzeichen(ro.getNewsletterKennzeichen());
-//      entity.setKontaktaufnahmeKennzeichen(ro.getKontaktaufnahmeKennzeichen());
-//      entity.setBewertungen(ro.getBewertungen());
     }
     return entity;
   }

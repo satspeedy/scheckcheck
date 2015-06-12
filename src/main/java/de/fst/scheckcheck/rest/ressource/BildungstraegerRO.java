@@ -1,7 +1,5 @@
 package de.fst.scheckcheck.rest.ressource;
 
-import de.fst.scheckcheck.entitaet.Bildungsmassnahme;
-
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +26,7 @@ public class BildungstraegerRO implements BasisRO {
 
   private String angebot;
 
-  private List<Bildungsmassnahme> bildungsmassnahmen = new ArrayList<>();
+  private List<Long> bildungsmassnahmeIds = new ArrayList<>();
 
   public BildungstraegerRO() {
   }
@@ -93,12 +91,11 @@ public class BildungstraegerRO implements BasisRO {
     this.angebot = angebot;
   }
 
-  public List<Bildungsmassnahme> getBildungsmassnahmen() {
-    return bildungsmassnahmen;
+  public List<Long> getBildungsmassnahmeIds() {
+    return bildungsmassnahmeIds;
   }
 
-  public void setBildungsmassnahmen(List<Bildungsmassnahme> bildungsmassnahmen) {
-    this.bildungsmassnahmen = bildungsmassnahmen;
+  public void setBildungsmassnahmeIds(List<Long> bildungsmassnahmeIds) {
+    this.bildungsmassnahmeIds = bildungsmassnahmeIds;
   }
-
 }

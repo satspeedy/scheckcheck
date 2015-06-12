@@ -2,6 +2,8 @@ package de.fst.scheckcheck.rest.endpunkt;
 
 import de.fst.scheckcheck.entitaet.Bewertung;
 import de.fst.scheckcheck.integration.BewertungDbIntegrationsService;
+import de.fst.scheckcheck.integration.BildungsmassnahmeDbIntegrationsService;
+import de.fst.scheckcheck.integration.TeilnehmerDbIntegrationsService;
 import de.fst.scheckcheck.mapper.BewertungMapper;
 import de.fst.scheckcheck.rest.ressource.BewertungRO;
 
@@ -27,6 +29,12 @@ public class BewertungEndpunkt {
   @Inject
   private BewertungDbIntegrationsService bewertungDbIntegrationsService;
 
+  @Inject
+  private TeilnehmerDbIntegrationsService teilnehmerDbIntegrationsService;
+
+  @Inject
+  private BildungsmassnahmeDbIntegrationsService bildungsmassnahmeDbIntegrationsService;
+
   /**
    * Erzeuge eine Bewertung.
    *
@@ -37,6 +45,10 @@ public class BewertungEndpunkt {
   @Consumes("application/json")
   public Response erzeuge(BewertungRO ro) {
     Bewertung entity = bewertungMapper.vonRO(null, ro);
+    // manuelles mapping
+    entity.setTeilnehmer(teilnehmerDbIntegrationsService.suche(ro.getTeilnehmerId()));
+    entity.setBildungsmassnahme(bildungsmassnahmeDbIntegrationsService.suche(ro.getBildungsmassnahmeId()));
+    // manuelles mapping
     bewertungDbIntegrationsService.speicher(entity);
     return Response.created(
       UriBuilder.fromResource(BewertungEndpunkt.class).path(String.valueOf(entity.getId())).build())
@@ -75,6 +87,10 @@ public class BewertungEndpunkt {
       return Response.status(Status.NOT_FOUND).build();
     }
     BewertungRO ro = bewertungMapper.vonEntitaet(null, bewertung);
+    // manuelles mapping
+    ro.setTeilnehmerId(bewertung.getTeilnehmer().getId());
+    ro.setBildungsmassnahmeId(bewertung.getBildungsmassnahme().getId());
+    // manuelles mapping
     return Response.ok(ro).build();
   }
 
@@ -90,6 +106,10 @@ public class BewertungEndpunkt {
     final List<BewertungRO> results = new ArrayList<>();
     for (Bewertung bewertung : bewertungen) {
       BewertungRO ro = bewertungMapper.vonEntitaet(null, bewertung);
+      // manuelles mapping
+      ro.setTeilnehmerId(bewertung.getTeilnehmer().getId());
+      ro.setBildungsmassnahmeId(bewertung.getBildungsmassnahme().getId());
+      // manuelles mapping
       results.add(ro);
     }
     return Response.ok(results).build();
@@ -108,6 +128,10 @@ public class BewertungEndpunkt {
   public Response aktualisiere(@PathParam("id") Long id, BewertungRO ro) {
     Bewertung entity = bewertungDbIntegrationsService.suche(id);
     entity = bewertungMapper.vonRO(entity, ro);
+    // manuelles mapping
+    entity.setTeilnehmer(teilnehmerDbIntegrationsService.suche(ro.getTeilnehmerId()));
+    entity.setBildungsmassnahme(bildungsmassnahmeDbIntegrationsService.suche(ro.getBildungsmassnahmeId()));
+    // manuelles mapping
     bewertungDbIntegrationsService.speicher(entity);
     return Response.noContent().build();
   }

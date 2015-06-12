@@ -1,9 +1,7 @@
 package de.fst.scheckcheck.mapper;
 
-import de.fst.scheckcheck.entitaet.Bewertung;
-import de.fst.scheckcheck.entitaet.Teilnehmer;
-import de.fst.scheckcheck.rest.ressource.BewertungRO;
-import de.fst.scheckcheck.rest.ressource.TeilnehmerRO;
+import de.fst.scheckcheck.entitaet.*;
+import de.fst.scheckcheck.rest.ressource.*;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.ConfigurableMapper;
 
@@ -17,8 +15,8 @@ public class KonfigurierterMapper extends ConfigurableMapper {
     // register the auto-mapping function
     factory.registerClassMap(factory.classMap(Teilnehmer.class, TeilnehmerRO.class).byDefault().toClassMap());
     factory.registerClassMap(factory.classMap(Bewertung.class, BewertungRO.class).byDefault().toClassMap());
-//    factory.registerClassMap(factory.classMap(Bildungstraeger.class, BildungstraegerRO.class).byDefault().toClassMap());
-//    factory.registerClassMap(factory.classMap(Bildungsmassnahme.class, BildungsmassnahmeRO.class).byDefault().toClassMap());
-//    factory.registerClassMap(factory.classMap(Portalmitarbeiter.class, PortalmitarbeiterRO.class).byDefault().toClassMap());
+    factory.registerClassMap(factory.classMap(Bildungstraeger.class, BildungstraegerRO.class).byDefault().toClassMap());
+    factory.registerClassMap(factory.classMap(Bildungsmassnahme.class, BildungsmassnahmeRO.class).byDefault().toClassMap());
+    factory.registerClassMap(factory.classMap(Portalmitarbeiter.class, PortalmitarbeiterRO.class).byDefault().toClassMap());
   }
 }

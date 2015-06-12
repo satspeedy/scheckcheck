@@ -1,7 +1,5 @@
 package de.fst.scheckcheck.rest.ressource;
 
-import de.fst.scheckcheck.entitaet.Bewertung;
-
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +30,7 @@ public class TeilnehmerRO implements BasisRO {
 
   private Boolean kontaktaufnahmeKennzeichen;
 
-  private List<Bewertung> bewertungen = new ArrayList<>();
+  private List<Long> bewertungIds = new ArrayList<>();
 
   public TeilnehmerRO() {
   }
@@ -105,19 +103,19 @@ public class TeilnehmerRO implements BasisRO {
     this.kontaktaufnahmeKennzeichen = kontaktaufnahmeKennzeichen;
   }
 
-  public List<Bewertung> getBewertungen() {
-    return bewertungen;
-  }
-
-  public void setBewertungen(List<Bewertung> bewertungen) {
-    this.bewertungen = bewertungen;
-  }
-
   public String getEmailAddresse() {
     return emailAddresse;
   }
 
   public void setEmailAddresse(String emailAddresse) {
     this.emailAddresse = emailAddresse;
+  }
+
+  public List<Long> getBewertungIds() {
+    return bewertungIds;
+  }
+
+  public void setBewertungIds(List<Long> bewertungIds) {
+    this.bewertungIds = bewertungIds;
   }
 }

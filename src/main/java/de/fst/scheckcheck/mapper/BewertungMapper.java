@@ -25,13 +25,6 @@ public class BewertungMapper {
     }
     if (entity != null) {
       mapper.map(entity, ro);
-//      ro.setId(entity.getId());
-//      ro.setOptimisticLockingVersion(entity.getOptimisticLockingVersion());
-//      ro.setDatum(entity.getDatum());
-//      ro.setSternebewertung(entity.getSternebewertung());
-//      ro.setFreiText(entity.getFreiText());
-//      ro.setTeilnehmer(entity.getTeilnehmer());
-//      ro.setBildungsmassnahme(entity.getBildungsmassnahme());
     }
     return ro;
   }
@@ -58,11 +51,6 @@ public class BewertungMapper {
         entity.setOptimisticLockingVersion(ro.getOptimisticLockingVersion());
       }
       mapper.map(ro, entity);
-//      entity.setDatum(ro.getDatum());
-//      entity.setSternebewertung(ro.getSternebewertung());
-//      entity.setFreiText(ro.getFreiText());
-//      entity.setTeilnehmer(ro.getTeilnehmer());
-//      entity.setBildungsmassnahme(ro.getBildungsmassnahme());
     }
     return entity;
   }

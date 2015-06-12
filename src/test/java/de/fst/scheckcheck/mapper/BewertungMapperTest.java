@@ -50,10 +50,10 @@ public class BewertungMapperTest {
     assertThat(ro.getBewertungAusstattung(), equalTo(entitaet.getBewertungAusstattung()));
     assertThat(ro.getFreiText(), notNullValue());
     assertThat(ro.getFreiText(), equalTo(entitaet.getFreiText()));
-    assertThat(ro.getTeilnehmer(), equalTo(entitaet.getTeilnehmer()));
-    assertThat(ro.getTeilnehmer(), nullValue());
-    assertThat(ro.getBildungsmassnahme(), nullValue());
-    assertThat(ro.getBildungsmassnahme(), equalTo(entitaet.getBildungsmassnahme()));
+    assertThat(ro.getTeilnehmerId(), nullValue());
+    assertThat(entitaet.getTeilnehmer(), nullValue());
+    assertThat(ro.getBildungsmassnahmeId(), nullValue());
+    assertThat(entitaet.getBildungsmassnahme(), nullValue());
   }
 
   @Test
@@ -86,10 +86,10 @@ public class BewertungMapperTest {
     assertThat(entitaet.getBewertungAusstattung(), equalTo(ro.getBewertungAusstattung()));
     assertThat(entitaet.getFreiText(), notNullValue());
     assertThat(entitaet.getFreiText(), equalTo(ro.getFreiText()));
-    assertThat(entitaet.getTeilnehmer(), equalTo(ro.getTeilnehmer()));
     assertThat(entitaet.getTeilnehmer(), nullValue());
+    assertThat(ro.getTeilnehmerId(), nullValue());
     assertThat(entitaet.getBildungsmassnahme(), nullValue());
-    assertThat(entitaet.getBildungsmassnahme(), equalTo(ro.getBildungsmassnahme()));
+    assertThat(ro.getBildungsmassnahmeId(), nullValue());
   }
 
 }
