@@ -2,6 +2,7 @@ package de.fst.scheckcheck.mapper;
 
 import de.fst.scheckcheck.entitaet.Bildungstraeger;
 import de.fst.scheckcheck.rest.ressource.BildungstraegerRO;
+import de.fst.scheckcheck.rest.ressource.full.BildungstraegerFullRO;
 
 import javax.persistence.OptimisticLockException;
 
@@ -22,6 +23,23 @@ public class BildungstraegerMapper {
   public BildungstraegerRO vonEntitaet(BildungstraegerRO ro, Bildungstraeger entity) {
     if (ro == null) {
       ro = new BildungstraegerRO();
+    }
+    if (entity != null) {
+      mapper.map(entity, ro);
+    }
+    return ro;
+  }
+
+  /**
+   * Mapped von Entität nach Resource object.
+   *
+   * @param ro Resource object
+   * @param entity entitaet
+   * @return Resource object
+   */
+  public BildungstraegerFullRO vonEntitaetFull(BildungstraegerFullRO ro, Bildungstraeger entity) {
+    if (ro == null) {
+      ro = new BildungstraegerFullRO();
     }
     if (entity != null) {
       mapper.map(entity, ro);

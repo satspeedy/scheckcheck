@@ -6,6 +6,7 @@ import de.fst.scheckcheck.integration.BildungsmassnahmeDbIntegrationsService;
 import de.fst.scheckcheck.integration.BildungstraegerDbIntegrationsService;
 import de.fst.scheckcheck.mapper.BildungstraegerMapper;
 import de.fst.scheckcheck.rest.ressource.BildungstraegerRO;
+import de.fst.scheckcheck.rest.ressource.full.BildungstraegerFullRO;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -84,12 +85,7 @@ public class BildungstraegerEndpunkt {
     if (bildungstraeger == null) {
       return Response.status(Status.NOT_FOUND).build();
     }
-    BildungstraegerRO ro = bildungstraegerMapper.vonEntitaet(null, bildungstraeger);
-    // manuelles mapping
-    for (Bildungsmassnahme bildungsmassnahme : bildungstraeger.getBildungsmassnahmen()) {
-      ro.getBildungsmassnahmeIds().add(bildungsmassnahme.getId());
-    }
-    // manuelles mapping
+    BildungstraegerFullRO ro = bildungstraegerMapper.vonEntitaetFull(null, bildungstraeger);
     return Response.ok(ro).build();
   }
 

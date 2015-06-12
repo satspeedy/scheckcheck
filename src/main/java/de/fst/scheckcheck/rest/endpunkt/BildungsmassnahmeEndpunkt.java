@@ -7,6 +7,8 @@ import de.fst.scheckcheck.integration.BildungsmassnahmeDbIntegrationsService;
 import de.fst.scheckcheck.integration.BildungstraegerDbIntegrationsService;
 import de.fst.scheckcheck.mapper.BildungsmassnahmeMapper;
 import de.fst.scheckcheck.rest.ressource.BildungsmassnahmeRO;
+import de.fst.scheckcheck.rest.ressource.full.BewertungFullRO;
+import de.fst.scheckcheck.rest.ressource.full.BildungsmassnahmeFullRO;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -91,14 +93,21 @@ public class BildungsmassnahmeEndpunkt {
     if (bildungsmassnahme == null) {
       return Response.status(Status.NOT_FOUND).build();
     }
-    BildungsmassnahmeRO ro = bildungsmassnahmeMapper.vonEntitaet(null, bildungsmassnahme);
-    // manuelles mapping
-    ro.setBildungstraegerId(bildungsmassnahme.getId());
-    for (Bewertung bewertung : bildungsmassnahme.getBewertungen()) {
-      ro.getBewertungIds().add(bewertung.getId());
+    BildungsmassnahmeFullRO ro = bildungsmassnahmeMapper.vonEntitaetFull(null, bildungsmassnahme);
+    for (BewertungFullRO bewertungFullRO : ro.getBewertungen()) {
+      bewertungFullRO.setBewertungDurchschnitt(berechneDurchschnitt(bewertungFullRO));
     }
-    // manuelles mapping
     return Response.ok(ro).build();
+  }
+
+  private int berechneDurchschnitt(BewertungFullRO bewertungFullRO) {
+    return (bewertungFullRO.getBewertungAusstattung() +
+      bewertungFullRO.getBewertungDozenten() +
+      bewertungFullRO.getBewertungInhaltWeiterbildung() +
+      bewertungFullRO.getBewertungLehrveranstaltungen() +
+      bewertungFullRO.getBewertungOrganisation() +
+      bewertungFullRO.getBewertungPraxisnaehe() +
+      bewertungFullRO.getBewertungUmsetzungWeiterbildung()) / 7;
   }
 
   /**
