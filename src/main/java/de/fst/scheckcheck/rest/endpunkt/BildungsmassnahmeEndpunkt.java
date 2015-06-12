@@ -101,13 +101,13 @@ public class BildungsmassnahmeEndpunkt {
   }
 
   private int berechneDurchschnitt(BewertungFullRO bewertungFullRO) {
-    return (bewertungFullRO.getBewertungAusstattung() +
-      bewertungFullRO.getBewertungDozenten() +
-      bewertungFullRO.getBewertungInhaltWeiterbildung() +
-      bewertungFullRO.getBewertungLehrveranstaltungen() +
-      bewertungFullRO.getBewertungOrganisation() +
-      bewertungFullRO.getBewertungPraxisnaehe() +
-      bewertungFullRO.getBewertungUmsetzungWeiterbildung()) / 7;
+    return (bewertungFullRO.getBewertungAusstattung()
+      + bewertungFullRO.getBewertungDozenten()
+      + bewertungFullRO.getBewertungInhaltWeiterbildung()
+      + bewertungFullRO.getBewertungLehrveranstaltungen()
+      + bewertungFullRO.getBewertungOrganisation()
+      + bewertungFullRO.getBewertungPraxisnaehe()
+      + bewertungFullRO.getBewertungUmsetzungWeiterbildung()) / 7;
   }
 
   /**

@@ -17,6 +17,13 @@ public class EmailService {
   private static final String FROM = "noreply@test.scheckcheck.com";
   private static final int PORT = 2525;
 
+  /**
+   * Email senden.
+   *
+   * @param emailAddresseEmpfaenger
+   * @param betreff
+   * @param nachricht
+   */
   public void senden(String emailAddresseEmpfaenger, String betreff, String nachricht) {
     Email email = new SimpleEmail();
     email.setHostName(HOST);
