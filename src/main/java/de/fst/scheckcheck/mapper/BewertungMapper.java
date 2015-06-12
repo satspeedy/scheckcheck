@@ -2,6 +2,7 @@ package de.fst.scheckcheck.mapper;
 
 import de.fst.scheckcheck.entitaet.Bewertung;
 import de.fst.scheckcheck.rest.ressource.BewertungRO;
+import de.fst.scheckcheck.rest.ressource.full.BewertungFullRO;
 
 import javax.persistence.OptimisticLockException;
 
@@ -22,6 +23,23 @@ public class BewertungMapper {
   public BewertungRO vonEntitaet(BewertungRO ro, Bewertung entity) {
     if (ro == null) {
       ro = new BewertungRO();
+    }
+    if (entity != null) {
+      mapper.map(entity, ro);
+    }
+    return ro;
+  }
+
+  /**
+   * Mapped von Entität nach Resource object.
+   *
+   * @param ro Resource object
+   * @param entity entitaet
+   * @return Resource object
+   */
+  public BewertungFullRO vonEntitaetFull(BewertungFullRO ro, Bewertung entity) {
+    if (ro == null) {
+      ro = new BewertungFullRO();
     }
     if (entity != null) {
       mapper.map(entity, ro);

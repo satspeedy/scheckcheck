@@ -17,12 +17,16 @@ public class KonfigurierterMapper extends ConfigurableMapper {
   protected void configure(MapperFactory factory) {
     // register the auto-mapping function
     factory.registerClassMap(factory.classMap(Teilnehmer.class, TeilnehmerRO.class).byDefault().toClassMap());
+
+    factory.registerClassMap(factory.classMap(Portalmitarbeiter.class, PortalmitarbeiterRO.class).byDefault().toClassMap());
+
     factory.registerClassMap(factory.classMap(Bewertung.class, BewertungRO.class).byDefault().toClassMap());
     factory.registerClassMap(factory.classMap(Bewertung.class, BewertungFullRO.class).byDefault().toClassMap());
+
     factory.registerClassMap(factory.classMap(Bildungstraeger.class, BildungstraegerRO.class).byDefault().toClassMap());
     factory.registerClassMap(factory.classMap(Bildungstraeger.class, BildungstraegerFullRO.class).byDefault().toClassMap());
+
     factory.registerClassMap(factory.classMap(Bildungsmassnahme.class, BildungsmassnahmeRO.class).byDefault().toClassMap());
     factory.registerClassMap(factory.classMap(Bildungsmassnahme.class, BildungsmassnahmeFullRO.class).byDefault().toClassMap());
-    factory.registerClassMap(factory.classMap(Portalmitarbeiter.class, PortalmitarbeiterRO.class).byDefault().toClassMap());
   }
 }

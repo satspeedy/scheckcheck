@@ -6,6 +6,7 @@ import de.fst.scheckcheck.integration.BildungsmassnahmeDbIntegrationsService;
 import de.fst.scheckcheck.integration.TeilnehmerDbIntegrationsService;
 import de.fst.scheckcheck.mapper.BewertungMapper;
 import de.fst.scheckcheck.rest.ressource.BewertungRO;
+import de.fst.scheckcheck.rest.ressource.full.BewertungFullRO;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -86,11 +87,7 @@ public class BewertungEndpunkt {
     if (bewertung == null) {
       return Response.status(Status.NOT_FOUND).build();
     }
-    BewertungRO ro = bewertungMapper.vonEntitaet(null, bewertung);
-    // manuelles mapping
-    ro.setTeilnehmerId(bewertung.getTeilnehmer().getId());
-    ro.setBildungsmassnahmeId(bewertung.getBildungsmassnahme().getId());
-    // manuelles mapping
+    BewertungFullRO ro = bewertungMapper.vonEntitaetFull(null, bewertung);
     return Response.ok(ro).build();
   }
 
