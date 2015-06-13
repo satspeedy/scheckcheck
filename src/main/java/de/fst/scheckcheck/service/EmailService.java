@@ -14,7 +14,7 @@ public class EmailService {
   private final Logger LOGGER = Logger.getLogger(EmailService.class.getName());
 
   private static final String HOST = "localhost";
-  private static final String FROM = "noreply@test.scheckcheck.com";
+  private static final String FROM = "noreply@scheckcheck.com";
   private static final int PORT = 2525;
 
   /**
